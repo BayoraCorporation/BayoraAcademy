@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mi perfil · Bayora Academy</title>
+<script src="bayora.js"></script>
+<style>
+[hidden]{display:none!important}
+main{max-width:1040px;margin:auto;padding:24px 24px 70px}
+.hero{background:#fff;border:1px solid var(--line);border-radius:16px;animation:up .5s both}
+.cover{position:relative;height:200px;border-radius:16px 16px 0 0;background:linear-gradient(120deg,#0e1f25 0%,#0a6b5b 60%,#19b5c4 100%) center/cover}
+.cv{position:absolute;right:16px;bottom:16px}
+.cv>button{display:flex;align-items:center;gap:7px;background:rgba(6,21,27,.72);color:#fff;font-size:.8rem;font-weight:600;padding:8px 14px;border-radius:999px;backdrop-filter:blur(4px)}.cv>button:hover{background:rgba(6,21,27,.9)}.cv svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.who{display:flex;gap:22px;align-items:flex-start;padding:0 28px 22px;flex-wrap:wrap}
+.pic{position:relative;flex:none;margin-top:-36px}
+.big{width:120px;height:120px;border-radius:50%;border:4px solid #fff;background:linear-gradient(135deg,#1f6b5e,#19b5c4) center/cover;color:#fff;font-size:2.2rem;font-weight:700;display:grid;place-items:center;box-shadow:0 6px 18px rgba(8,30,36,.18);cursor:pointer;padding:0}
+.big:hover{filter:brightness(1.06)}.big:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.menu{position:absolute;left:0;top:128px;width:230px;z-index:40;background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 12px 30px rgba(8,30,36,.16)}.menu[hidden]{display:none}
+.menu button{display:block;width:100%;text-align:left;background:none;padding:10px 12px;border-radius:8px;font-size:.88rem;font-weight:600;color:var(--ink)}.menu button:hover{background:var(--mist)}.menu .dg{color:#8f2a1f}
+.id{flex:1;min-width:220px;padding-top:16px}.id h1{font-size:1.6rem;line-height:1.2;overflow-wrap:anywhere}.id .tt{color:var(--ink);margin-top:3px}
+.meta{display:flex;gap:6px 14px;flex-wrap:wrap;margin-top:10px;font-size:.85rem;color:var(--soft);align-items:center}
+.rl{background:#e1f6ef;color:#0a5c4a;font-weight:700;font-size:.75rem;padding:3px 11px;border-radius:999px}
+.rt{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:.88rem}.stars{color:#e3a712;letter-spacing:2px}.stars i{color:#d3dde0;font-style:normal}
+.tabs{display:flex;gap:4px;padding:0 20px;border-top:1px solid var(--line);overflow-x:auto}
+.tabs button{background:none;padding:14px 16px;font-weight:600;font-size:.9rem;color:var(--soft);border-bottom:3px solid transparent;white-space:nowrap}.tabs button:hover{color:var(--ink)}.tabs button.on{color:var(--deep);border-color:var(--green)}
+.pn{display:none;margin-top:20px;animation:up .4s both}.pn.on{display:block}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.st{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}.st b{display:block;font-size:1.6rem;line-height:1.1}.st span{font-size:.82rem;color:var(--soft)}
+.cols{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;margin-top:20px}
+.sec{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 26px}.pn>.sec+.sec{margin-top:20px}
+.sec h2{font-size:1.05rem;margin-bottom:12px}.sec>p.d{color:var(--soft);font-size:.9rem;margin:-6px 0 18px}.sec p{overflow-wrap:anywhere}.mut{color:var(--soft);font-size:.92rem}
+.dl{display:grid;gap:12px}.dl div{display:grid;grid-template-columns:110px 1fr;gap:10px;font-size:.9rem}.dl dt{color:var(--soft)}.dl dd{overflow-wrap:anywhere}.dl a{color:var(--deep);font-weight:600}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px}.full{grid-column:1/-1}
+label{display:block;font-size:.84rem;font-weight:600;color:var(--ink)}label small{font-weight:400;color:var(--soft)}
+input,textarea{display:block;width:100%;margin-top:6px;padding:11px 13px;border:1px solid #8c9da1;border-radius:8px;background:#fff;color:var(--ink)}
+textarea{min-height:98px;resize:vertical}input[readonly]{background:var(--mist);color:var(--soft);border-color:var(--line)}
+input:focus,textarea:focus{outline:2px solid var(--green);outline-offset:1px;border-color:var(--deep)}
+.bad{border-color:#c0392b!important}.err{display:block;color:#8f2a1f;font-size:.78rem;font-weight:400;margin-top:4px}.cnt{float:right;font-weight:400;color:var(--soft)}
+.row{display:flex;gap:12px;align-items:center;justify-content:flex-end;margin-top:22px;flex-wrap:wrap}.row .note{margin-right:auto;font-size:.82rem;color:var(--soft)}
+.btn{display:inline-block;background:var(--green);color:#03231c;font-weight:700;padding:11px 24px;border-radius:999px;transition:.15s}.btn:hover{filter:brightness(1.08)}
+.btn.g{background:#fff;border:1px solid #9fb0b4;color:var(--ink);padding:9px 18px;font-size:.85rem}
+.pw{position:relative}.pw button{position:absolute;right:8px;top:34px;background:none;color:var(--deep);font-size:.78rem;font-weight:700;padding:4px 6px}
+.lst .it{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--line);font-size:.9rem}.lst .it:first-child{border:0;padding-top:0}.lst small{color:var(--soft)}
+.empty{color:var(--soft);padding:10px 0}.empty a{color:var(--deep);font-weight:700}
+.lb{position:fixed;inset:0;background:rgba(6,21,27,.82);display:grid;place-items:center;z-index:70}.lb[hidden]{display:none}.lb .im{width:min(78vw,420px);aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,#1f6b5e,#19b5c4) center/cover;color:#fff;font-size:5rem;font-weight:700;display:grid;place-items:center;border:5px solid #fff}
+.cv .menu{left:auto;right:0;top:auto;bottom:46px}
+.lb .im.w{border-radius:12px;aspect-ratio:5/1;width:min(94vw,1100px);border:0;background-color:#0e1f25}
+.ed{position:fixed;inset:0;background:rgba(6,21,27,.82);display:grid;place-items:center;z-index:75;padding:16px}.ed[hidden]{display:none}
+.edb{background:#fff;border-radius:16px;padding:22px 24px;width:min(100%,640px)}.edb h3{font-size:1.1rem}.edb .mut{margin:2px 0 14px}
+.vp{position:relative;overflow:hidden;margin:auto;background:#0e1f25;cursor:grab;touch-action:none;user-select:none}.vp:active{cursor:grabbing}.vp.c{width:300px;aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 4px #fff,0 0 0 5px var(--line)}.vp.w{width:100%;aspect-ratio:5/1;border-radius:8px}
+.vp img{position:absolute;left:0;top:0;max-width:none;transform-origin:0 0;pointer-events:none}
+.zm{display:flex;align-items:center;gap:12px;margin-top:16px;font-size:.84rem}.zm input{margin:0;padding:0;flex:1;accent-color:var(--deep)}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:#10262b;color:#fff;padding:12px 22px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:.25s;z-index:80}.toast.on{opacity:1;transform:translate(-50%,0)}.toast.bad{background:#8f2a1f}
+@media(max-width:760px){.cols,.g2{grid-template-columns:1fr}.who{padding:0 18px 18px}.sec{padding:20px 18px}.cover{height:150px}.dl div{grid-template-columns:1fr;gap:2px}.pic{margin-top:-30px}.big{width:100px;height:100px}.menu{top:108px}.vp{max-width:100%}}
+</style></head><body>
+<main>
+<section class="hero"><div class="cover" id="cov"><div class="cv"><button type="button" id="ec" aria-haspopup="true"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>Editar portada</button>
+<div class="menu" id="cm" hidden><button type="button" id="cvv">Ver portada</button><button type="button" id="cve">Editar portada</button><button type="button" class="dg" id="rc">Quitar portada</button></div></div></div>
+<div class="who">
+<div class="pic"><button class="big" id="pic" type="button" aria-haspopup="true" aria-label="Opciones de foto de perfil"></button>
+<div class="menu" id="mn" hidden><button type="button" id="mv">Ver foto de perfil</button><button type="button" id="mc">Cambiar foto de perfil</button><button type="button" class="dg" id="rmv" hidden>Quitar foto</button></div></div>
+<div class="id"><h1 id="nm"></h1><p class="tt" id="tt"></p><div class="meta"><span class="rl" id="rl"></span><span id="lo"></span><span id="dt"></span></div><div class="rt" id="rt"></div></div></div>
+<nav class="tabs" id="tabs"></nav></section>
+
+<section class="pn on" id="p-res"><div class="stats" id="stats"></div>
+<div class="cols"><div class="sec"><h2>Acerca de</h2><p id="ab"></p></div><div class="sec"><h2>Información</h2><dl class="dl" id="dl"></dl></div></div></section>
+
+<section class="pn" id="p-cur"><div class="sec"><h2>Cursos publicados</h2><p class="d">Los cursos que has creado y están disponibles en el catálogo.</p><div class="grid" id="cg"></div></div></section>
+
+<section class="pn" id="p-log"><div class="sec"><h2>Valoración</h2><div id="val"></div></div><div class="sec"><h2>Certificados obtenidos</h2><div class="lst" id="ce"></div></div></section>
+
+<section class="pn" id="p-cfg">
+<form class="sec" id="fp" novalidate><h2>Información personal</h2><p class="d">Tu nombre aparece como autor en los cursos que publiques.</p>
+<div class="g2">
+<label>Nombre completo<input id="n" maxlength="60" autocomplete="name"><span class="err" id="en"></span></label>
+<label>Correo electrónico<input id="e" readonly></label>
+<label class="full">Titular profesional <small>(opcional)</small><input id="h" maxlength="80" placeholder="Ej. Ingeniera de software · Docente universitaria"></label>
+<label class="full">Acerca de ti <small>(opcional)</small><span class="cnt" id="cn">0/280</span><textarea id="b" maxlength="280" placeholder="Cuéntales a tus alumnos quién eres y qué te apasiona."></textarea></label>
+<label>País<input id="p" maxlength="40" placeholder="Perú" autocomplete="country-name"></label>
+<label>Ciudad<input id="c" maxlength="40" placeholder="Lima" autocomplete="address-level2"></label>
+<label>Teléfono <small>(opcional)</small><input id="t" type="tel" maxlength="20" placeholder="+51 999 999 999" autocomplete="tel"><span class="err" id="et"></span></label>
+<label>Sitio web o red social <small>(opcional)</small><input id="w" maxlength="120" placeholder="https://" autocomplete="url"><span class="err" id="ew"></span></label>
+</div>
+<div class="row"><span class="note">El correo no se puede cambiar porque identifica tu cuenta.</span><button class="btn g" type="button" id="rs">Descartar cambios</button><button class="btn" type="submit">Guardar cambios</button></div></form>
+
+<form class="sec" id="fs" novalidate><h2>Seguridad</h2><p class="d">Usa una contraseña de al menos 8 caracteres que no uses en otros sitios.</p>
+<div class="g2">
+<label class="full pw">Contraseña actual<input id="p0" type="password" autocomplete="current-password"><button type="button" data-v="p0">Mostrar</button><span class="err" id="e0"></span></label>
+<label class="pw">Nueva contraseña<input id="p1" type="password" autocomplete="new-password"><button type="button" data-v="p1">Mostrar</button><span class="err" id="e1"></span></label>
+<label class="pw">Repite la nueva contraseña<input id="p2" type="password" autocomplete="new-password"><button type="button" data-v="p2">Mostrar</button><span class="err" id="e2"></span></label>
+</div><div class="row"><button class="btn" type="submit">Actualizar contraseña</button></div></form>
+</section>
+</main>
+<input id="file" type="file" accept="image/*" hidden style="display:none">
+<div class="ed" id="ed" hidden role="dialog" aria-modal="true"><div class="edb"><h3 id="eh"></h3><p class="mut">Arrastra la imagen para encuadrarla y usa el control para acercar.</p><div class="vp" id="vp"><img id="ei" alt=""></div><label class="zm">Zoom<input type="range" id="zm" min="1" max="3" step="0.01" value="1"></label><div class="row"><button class="btn g" type="button" id="ecn">Cancelar</button><button class="btn" type="button" id="eok">Aplicar</button></div></div></div>
+<div class="lb" id="lb" hidden><div class="im" id="li"></div></div>
+<div class="toast" id="ts" role="status" aria-live="polite"></div>
+<script>
+const {s}=BY.hdr("p"),G=BY.get,E=BY.esc,$=x=>document.querySelector(x);
+const cl=v=>String(v||'').replace(/[<>]/g,'').trim();
+const me=()=>G('users').find(x=>x.email===s.email)||{};
+/* Perfil de otra persona (solo lectura): perfil.html?u=correo */
+const PU=new URLSearchParams(location.search).get('u'),VIEW=!!PU&&PU!==s.email,who=()=>VIEW?(G('users').find(x=>x.email===PU)||{}):me();
+let tm;function toast(m,bad){const t=$("#ts");t.textContent=m;t.className='toast on'+(bad?' bad':'');clearTimeout(tm);tm=setTimeout(()=>t.className='toast',2800)}
+const ini=n=>(n||'TÚ').trim().split(/\s+/).map(p=>p[0]).slice(0,2).join('').toUpperCase();
+const stars=r=>{const f=Math.round(r);return `<span class="stars" aria-hidden="true">${'★'.repeat(f)}<i>${'★'.repeat(5-f)}</i></span>`};
+const fdate=d=>new Date(d.length>10?d:d+'T12:00:00').toLocaleDateString('es-PE',{day:'numeric',month:'long',year:'numeric'});
+
+/* ---- Validación de nombre: sin marca Bayora (salvo admins) ni lenguaje ofensivo ---- */
+const norm=t=>t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[0]/g,'o').replace(/[1!|]/g,'i').replace(/3/g,'e').replace(/[4@]/g,'a').replace(/[5$]/g,'s').replace(/7/g,'t');
+const WORDS=['puta','puto','putas','putos','mierda','verga','pene','pija','pinga','vagina','culo','cono','concha','coño','cojudo','cojuda','huevon','huevona','webon','weon','imbecil','idiota','estupido','estupida','pendejo','pendeja','cabron','cabrona','maricon','marica','zorra','perra','sexo','porno','nazi','fuck','shit','bitch','dick','pussy','asshole','nigger','nigga','whore','slut'];
+const STEMS=['mierda','cabron','pendejo','gilipollas','hijueputa','hijodeputa','malparido','chingad','fuck','shit','bitch','nigger','puta madre','putamadre','conchatumadre','pajero'];
+function nombreMalo(n,adm){const r=norm(n),j=r.replace(/[^a-z]/g,''),tk=r.split(/[^a-z]+/).filter(Boolean);
+ if(!adm&&(j.includes('bayora')||/ba+y+o+r+a/.test(j)||/ba+i+o+r+a/.test(j)))return'Ese nombre está reservado para la marca Bayora. Elige otro.';
+ if(!adm&&/(administrador|moderador|soporte|oficial)/.test(j))return'Ese nombre podría confundirse con el equipo de Bayora. Elige otro.';
+ if(tk.some(t=>WORDS.includes(t))||STEMS.some(w=>j.includes(w.replace(/ /g,''))))return'Ese nombre contiene lenguaje inapropiado. Usa tu nombre real.';
+ if(!/^[\p{L}][\p{L}\s.'’-]*$/u.test(n))return'Usa solo letras, espacios, puntos o guiones.';
+ return''}
+
+/* ---- Cabecera ---- */
+async function head(){const u=who(),adm=u.rol==='admin',ins=adm||!!u.instructor;
+if(VIEW&&!u.email){document.querySelector('main').innerHTML='<div class="sec"><h2>Perfil no disponible</h2><p class="mut">No encontramos a esta persona. <a href="comunidad.html" style="color:var(--deep);font-weight:700">Volver a la comunidad</a></p></div>';return}
+if(VIEW){document.title=(u.nombre||'Perfil')+' · Bayora Academy';document.querySelector('.cv').hidden=true;document.querySelector('#p-cur .d').textContent='Cursos de esta persona disponibles en el catálogo.'}
+$("#nm").textContent=u.nombre||s.nombre;$("#tt").textContent=u.titular||'';$("#tt").hidden=!u.titular;
+$("#rl").textContent=adm?'Administrador':ins?'Instructor':'Alumno';
+const lo=[u.ciudad,u.pais].filter(Boolean).join(', ');$("#lo").textContent=lo?'📍 '+lo:'';$("#lo").hidden=!lo;
+$("#dt").textContent=u.creado?'Miembro desde '+new Date(u.creado.length>10?u.creado:u.creado+'T12:00:00').toLocaleDateString('es-PE',{month:'long',year:'numeric'}):'';
+const pic=$("#pic"),src=u.foto?await BY.url(u.foto):null;
+if(src){pic.style.backgroundImage='url('+src+')';pic.textContent=''}else{pic.style.backgroundImage='';pic.textContent=ini(u.nombre||s.nombre)}
+$("#rmv").hidden=!u.foto||VIEW;pic.style.cursor=VIEW&&!src?'default':'';
+const cv=u.cover?await BY.url(u.cover):null;$("#cov").style.backgroundImage=cv?'url('+cv+')':'';$("#rc").hidden=!u.cover;$("#cvv").hidden=!u.cover;$("#cov").style.cursor=VIEW&&cv?'zoom-in':'';
+const m=G('enroll',{})[u.email]||{},ls=Object.values(m).reduce((a,d)=>a+(Array.isArray(d)?d.length:0),0),
+ C=G('certs').filter(x=>x.email===u.email&&x.estado==='vigente'),
+ pub=G('courses').filter(x=>x.email===u.email&&x.estado==='publicado'),
+ rated=pub.filter(c=>c.rating),avg=rated.length?rated.reduce((a,c)=>a+c.rating,0)/rated.length:0,
+ alum=pub.reduce((a,c)=>a+(c.estudiantes||0),0);
+$("#rt").innerHTML=ins&&avg?`${stars(avg)}<b>${avg.toFixed(1)}</b><span class="mut">· ${rated.length} ${rated.length===1?'curso valorado':'cursos valorados'}</span>`:'';
+const L=VIEW?[[C.length,'Certificados']]:[[Object.keys(m).length,'Cursos inscritos'],[ls,'Lecciones completadas'],[C.length,'Certificados']];
+if(ins)L.push([pub.length,'Cursos publicados'],[alum,'Estudiantes']);
+$("#stats").innerHTML=L.map(x=>`<div class="st"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
+$("#ab").innerHTML=u.bio?E(u.bio):VIEW?'<span class="mut">Esta persona aún no ha escrito nada sobre sí.</span>':'<span class="mut">Aún no has escrito nada sobre ti. Añádelo en la pestaña Configuración.</span>';
+const web=u.web?`<a href="${E(u.web)}" target="_blank" rel="noopener">${E(u.web.replace(/^https?:\/\//,''))}</a>`:'';
+const D=[['Correo',E(u.email)],['Ubicación',E(lo)],['Teléfono',E(u.telefono||'')],['Sitio web',web],['Miembro desde',u.creado?fdate(u.creado):'']].filter(x=>x[1]&&!(VIEW&&(x[0]==='Correo'||x[0]==='Teléfono')));
+$("#dl").innerHTML=D.map(x=>`<div><dt>${x[0]}</dt><dd>${x[1]}</dd></div>`).join('');
+/* Cursos publicados */
+$("#cg").innerHTML=pub.length?pub.map(c=>BY.card(c)).join(''):VIEW?'<p class="empty">Esta persona aún no tiene cursos publicados.</p>':`<p class="empty">${ins?'Aún no tienes cursos publicados. <a href="instructor.html">Ir a mis cursos</a>':'Publica cursos como instructor. <a href="instructor.html">Solicitar ser instructor</a>'}</p>`;
+BY.hydrate($("#cg"));$("#ce").parentElement.hidden=VIEW;
+/* Valoración y certificados */
+$("#val").innerHTML=ins&&rated.length?`<div class="rt" style="margin:0 0 14px;font-size:1rem">${stars(avg)}<b style="font-size:1.4rem">${avg.toFixed(1)}</b><span class="mut">promedio de tus cursos</span></div><div class="lst">${rated.map(c=>`<div class="it"><span>${E(c.titulo)}</span><span class="stars">★ <b style="color:var(--ink)">${c.rating.toFixed(1)}</b></span></div>`).join('')}</div>`:'<p class="empty">Las estrellas aparecen cuando tus cursos reciben valoraciones.</p>';
+$("#ce").innerHTML=C.length?C.map(r=>`<div class="it"><span><b>${E(r.curso)}</b><br><small>Emitido el ${fdate(r.fecha)}</small></span><a class="btn g" href="curso.html?id=${r.cid}&cert=1">Ver</a></div>`).join(''):'<p class="empty">Todavía no tienes certificados. <a href="catalogo.html">Explora el catálogo</a>.</p>';
+const T=[['res','Resumen'],...(ins?[['cur','Cursos publicados']]:[]),...(VIEW&&!ins?[]:[['log',VIEW?'Valoración':'Valoración y logros']]),...(VIEW?[]:[['cfg','Configuración']])],act=document.querySelector('.tabs .on')?.dataset.t||'res';
+$("#tabs").innerHTML=T.map(t=>`<button type="button" data-t="${t[0]}" class="${t[0]===act?'on':''}">${t[1]}</button>`).join('')}
+function tab(t){document.querySelectorAll('.pn').forEach(p=>p.classList.toggle('on',p.id==='p-'+t));document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t))}
+$("#tabs").onclick=e=>{const t=e.target.dataset.t;if(t){tab(t);history.replaceState(null,'','#'+t)}};
+
+/* ---- Foto y portada ---- */
+/* Editor de recorte: arrastrar + zoom, con vista previa del encuadre final */
+const ED={};
+function paint(){const sc=ED.k*ED.z;ED.x=Math.min(0,Math.max(ED.vw-ED.nw*sc,ED.x));ED.y=Math.min(0,Math.max(ED.vh-ED.nh*sc,ED.y));$("#ei").style.transform=`translate(${ED.x}px,${ED.y}px) scale(${sc})`}
+function edit(f,kind){return new Promise((ok,no)=>{const im=$("#ei"),u=URL.createObjectURL(f),vp=$("#vp"),cov=kind==='cover';
+ const W=cov?1600:400,H=cov?320:400,done=v=>{$("#ed").hidden=true;URL.revokeObjectURL(u);im.removeAttribute('src');v?ok(v):no()};
+ im.onerror=()=>done(null);
+ im.onload=()=>{$("#eh").textContent=cov?'Ajusta tu portada':'Ajusta tu foto de perfil';vp.className='vp '+(cov?'w':'c');$("#ed").hidden=false;
+  const r=vp.getBoundingClientRect();Object.assign(ED,{nw:im.naturalWidth,nh:im.naturalHeight,vw:r.width,vh:r.height,z:1});
+  ED.k=Math.max(ED.vw/ED.nw,ED.vh/ED.nh);im.style.width=ED.nw+'px';im.style.height=ED.nh+'px';
+  ED.x=(ED.vw-ED.nw*ED.k)/2;ED.y=(ED.vh-ED.nh*ED.k)/2;$("#zm").value=1;paint()};
+ const zoom=z=>{const o=ED.k*ED.z,cx=(ED.vw/2-ED.x)/o,cy=(ED.vh/2-ED.y)/o;ED.z=Math.min(3,Math.max(1,z));const n=ED.k*ED.z;ED.x=ED.vw/2-cx*n;ED.y=ED.vh/2-cy*n;$("#zm").value=ED.z;paint()};
+ $("#zm").oninput=e=>zoom(+e.target.value);vp.onwheel=e=>{e.preventDefault();zoom(ED.z-e.deltaY*.002)};
+ let d=null;vp.onpointerdown=e=>{d={x:e.clientX-ED.x,y:e.clientY-ED.y};vp.setPointerCapture(e.pointerId)};
+ vp.onpointermove=e=>{if(!d)return;ED.x=e.clientX-d.x;ED.y=e.clientY-d.y;paint()};vp.onpointerup=vp.onpointercancel=()=>d=null;
+ $("#ecn").onclick=()=>done(null);
+ $("#eok").onclick=()=>{const sc=ED.k*ED.z,c=document.createElement('canvas');c.width=W;c.height=H;
+  c.getContext('2d').drawImage(im,-ED.x/sc,-ED.y/sc,ED.vw/sc,ED.vh/sc,0,0,W,H);c.toBlob(b=>done(b),'image/jpeg',.9)};
+ im.src=u})}
+let mode='foto';
+const pick=m=>{mode=m;$("#mn").hidden=true;$("#file").click()};
+$("#pic").onclick=e=>{e.stopPropagation();if(VIEW){if($("#pic").style.backgroundImage)$("#mv").click();return}$("#mn").hidden=!$("#mn").hidden};
+$("#cov").onclick=e=>{if(!VIEW||e.target.closest('.cv')||!$("#cov").style.backgroundImage)return;$("#cvv").click()};
+document.addEventListener('click',e=>{if(!e.target.closest('.pic'))$("#mn").hidden=true;if(!e.target.closest('.cv'))$("#cm").hidden=true});
+addEventListener('keydown',e=>{if(e.key==='Escape'){$("#mn").hidden=true;$("#cm").hidden=true;$("#lb").hidden=true;if(!$("#ed").hidden)$("#ecn").click()}});
+$("#mc").onclick=()=>pick('foto');$("#cve").onclick=()=>{$("#cm").hidden=true;pick('cover')};
+$("#ec").onclick=e=>{e.stopPropagation();$("#cm").hidden=!$("#cm").hidden};
+$("#mv").onclick=()=>{$("#mn").hidden=true;const p=$("#pic");$("#li").className='im';$("#li").style.backgroundImage=p.style.backgroundImage;$("#li").textContent=p.textContent;$("#lb").hidden=false};
+$("#cvv").onclick=()=>{$("#cm").hidden=true;$("#li").className='im w';$("#li").style.backgroundImage=$("#cov").style.backgroundImage;$("#li").textContent='';$("#lb").hidden=false};
+$("#lb").onclick=()=>$("#lb").hidden=true;
+$("#file").onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+ if(!/^image\//.test(f.type)){toast('Elige un archivo de imagen (JPG, PNG o WebP).',true);return}
+ if(f.size>10*1024*1024){toast('La imagen pesa más de 10 MB. Elige una más liviana.',true);return}
+ const key=mode==='cover'?'cover':'foto';
+ let b;try{b=await edit(f,key)}catch{return}
+ try{const k=await BY.putF(b),u=me();if(u[key])BY.delF(u[key]);
+ BY.set('users',G('users').map(x=>x.email===s.email?{...x,[key]:k}:x));BY.paintAv();await head();toast(key==='cover'?'Portada actualizada':'Foto actualizada')}catch{toast('No pudimos procesar esa imagen. Prueba con otra.',true)}};
+const quitar=key=>async()=>{const u=me();if(!u[key])return;BY.delF(u[key]);BY.set('users',G('users').map(x=>x.email===s.email?{...x,[key]:null}:x));BY.paintAv();$("#mn").hidden=true;$("#cm").hidden=true;await head();toast('Imagen eliminada')};
+$("#rmv").onclick=quitar('foto');$("#rc").onclick=quitar('cover');
+
+/* ---- Formularios ---- */
+const cnt=()=>$("#cn").textContent=$("#b").value.length+'/280';
+function mk(k,m,eid){const i=$("#"+k),e=$("#"+(eid||'e'+k));if(!e)return;e.textContent=m;i.classList.toggle('bad',!!m)}
+function fill(){const u=me();$("#n").value=u.nombre||s.nombre||'';$("#e").value=u.email;$("#h").value=u.titular||'';$("#b").value=u.bio||'';$("#p").value=u.pais||'';$("#c").value=u.ciudad||'';$("#t").value=u.telefono||'';$("#w").value=u.web||'';cnt();['n','t','w'].forEach(k=>mk(k,''))}
+$("#b").oninput=cnt;$("#rs").onclick=()=>{fill();toast('Cambios descartados')};
+$("#fp").onsubmit=e=>{e.preventDefault();
+ const prev=me(),adm=prev.rol==='admin',n=cl($("#n").value).replace(/\s+/g,' '),t=cl($("#t").value);let w=cl($("#w").value),bad=false;
+ const en=n.length<2?'Escribe tu nombre completo.':(n===prev.nombre?'':nombreMalo(n,adm));mk('n',en);if(en)bad=true;
+ const tOk=!t||/^[+\d][\d\s().-]{5,}$/.test(t);mk('t',tOk?'':'Usa solo números, por ejemplo +51 999 999 999.');if(!tOk)bad=true;
+ if(w&&!/^https?:\/\//i.test(w))w='https://'+w;let wOk=true;if(w){try{wOk=/\./.test(new URL(w).hostname)}catch{wOk=false}}mk('w',wOk?'':'Escribe una dirección válida, por ejemplo https://mi-sitio.com.');if(!wOk)bad=true;
+ if(bad){toast('Revisa los campos marcados.',true);return}
+ const old=prev.nombre,vals={nombre:n,titular:cl($("#h").value),bio:cl($("#b").value),pais:cl($("#p").value),ciudad:cl($("#c").value),telefono:t,web:w};
+ if(!BY.set('users',G('users').map(x=>x.email===s.email?{...x,...vals}:x))){toast('No pudimos guardar tus cambios. Revisa que el navegador no esté en modo privado.',true);return}
+ BY.setSession({...(BY.session()||{}),nombre:n});s.nombre=n;
+ if(old!==n){const cs=G('courses');if(cs.some(c=>c.email===s.email))BY.set('courses',cs.map(c=>c.email===s.email?{...c,instructor:E(n)}:c))}
+ BY.paintAv();head();$("#n").value=n;$("#w").value=w;toast('Cambios guardados')};
+document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{const i=$("#"+b.dataset.v),h=i.type==='password';i.type=h?'text':'password';b.textContent=h?'Ocultar':'Mostrar'});
+$("#fs").onsubmit=async e=>{e.preventDefault();const a=$("#p0").value,n=$("#p1").value,r=$("#p2").value;
+ const ok0=a&&(me().hash===await BY.hash(a));mk('p0',ok0?'':'La contraseña actual no es correcta.','e0');
+ const e1=n.length<8?'Debe tener al menos 8 caracteres.':n===a?'Elige una contraseña distinta a la actual.':'';mk('p1',e1,'e1');
+ const e2=r!==n?'Las contraseñas no coinciden.':'';mk('p2',e2,'e2');
+ if(!ok0||e1||e2){toast('Revisa los campos marcados.',true);return}
+ const h=await BY.hash(n);BY.set('users',G('users').map(x=>x.email===s.email?{...x,hash:h}:x));
+ ['p0','p1','p2'].forEach(k=>{$("#"+k).value='';$("#"+k).type='password'});document.querySelectorAll('[data-v]').forEach(b=>b.textContent='Mostrar');toast('Contraseña actualizada')};
+
+fill();head().then(()=>{const h=location.hash.slice(1);if(VIEW)return;if(h==='editar'){tab('cfg');setTimeout(()=>$("#n").focus(),300)}else if(['res','cur','log','cfg'].includes(h)&&document.querySelector(`[data-t="${h}"]`))tab(h)});
+</script></body></html>

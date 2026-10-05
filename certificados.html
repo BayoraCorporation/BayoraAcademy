@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Certificados · Bayora Academy</title>
+<script src="bayora.js"></script>
+<style>main{max-width:960px;margin:auto;padding:28px 24px 60px}h1{font-size:1.7rem;animation:up .5s both}.sub{color:var(--soft);margin:4px 0 8px}h2{margin:28px 0 12px;font-size:1.15rem}
+.row{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:12px;animation:up .5s both}.row.p{grid-template-columns:1fr minmax(200px,1.1fr) auto}.row small{display:block;color:var(--soft);font-size:.82rem;margin-top:2px}
+.bars label{display:block;font-size:.8rem;color:var(--soft);margin-bottom:8px}.pg{display:block;height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:4px}.pg i{display:block;height:100%;background:var(--green);transition:width .6s}
+.btn{display:inline-block;background:var(--green);color:#03231c;font-weight:700;padding:10px 20px;border-radius:999px;white-space:nowrap}.btn.g{background:#fff;border:1px solid var(--deep);color:var(--deep)}.btn:hover{filter:brightness(1.08)}
+.bd{padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700;background:#fdecea;color:#8f2a1f}.empty{color:var(--soft);padding:14px 0}
+@media(max-width:700px){.row,.row.p{grid-template-columns:1fr}}</style></head><body>
+<main><h1>Certificados</h1><p class="sub">Un certificado se habilita cuando completas todas las lecciones de un curso y cumples sus horas de estudio.</p>
+<h2>Obtenidos</h2><div id="ok"></div><h2>En camino</h2><div id="pe"></div></main>
+<script>
+const {s}=BY.hdr("k"),G=BY.get,E=BY.esc,$=x=>document.querySelector(x);
+const cs=G('courses'),m=G('enroll',{})[s.email]||{},C=G('certs').filter(x=>x.email===s.email);
+const fd=f=>new Date(f+'T12:00:00').toLocaleDateString('es-PE',{day:'numeric',month:'long',year:'numeric'});
+$("#ok").innerHTML=C.length?C.map(r=>{const c=cs.find(x=>x.id===r.cid);return`<div class="row"><div><b>${r.curso}</b><small>Emitido el ${fd(r.fecha)} · Código ${E(r.code)}</small></div><div>${r.estado!=='vigente'?'<span class="bd">Revocado</span>':c?`<a class="btn" href="curso.html?id=${c.id}&cert=1">Ver / descargar</a>`:'<span class="bd">Curso no disponible</span>'}</div></div>`}).join(""):'<p class="empty">Todavía no tienes certificados. Completa un curso para obtener el primero.</p>';
+const P=cs.filter(c=>Array.isArray(m[c.id])&&!C.some(r=>r.cid===c.id));
+$("#pe").innerHTML=P.length?P.map(c=>{const d=m[c.id],n=BY.lessons(c).length,pl=Math.round(100*d.length/n),need=BY.req(c),sp=BY.spent(s.email,c.id),ph=need?Math.min(100,Math.round(100*sp/need)):100,ok=BY.cumple(s.email,c,d);
+return`<div class="row p"><div><b>${c.titulo}</b><small>${ok?'Cumpliste todos los requisitos':c.horas?c.horas+' horas de duración':'En progreso'}</small></div><div class="bars"><label>Lecciones · ${d.length} de ${n}<span class="pg"><i style="width:${pl}%"></i></span></label>${need?`<label>Horas de estudio · ${BY.fmt(sp)} de ${BY.fmt(need)}<span class="pg"><i style="width:${ph}%"></i></span></label>`:''}</div><div>${ok?`<a class="btn" href="curso.html?id=${c.id}&cert=1">Obtener certificado</a>`:`<a class="btn g" href="curso.html?id=${c.id}">Continuar curso</a>`}</div></div>`}).join(""):'<p class="empty">No tienes cursos en progreso. <a href="catalogo.html" style="color:var(--deep);font-weight:700">Explora el catálogo</a>.</p>';
+</script></body></html>

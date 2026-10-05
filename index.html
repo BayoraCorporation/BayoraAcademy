@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bayora Academy · Aprende, desarrolla tus habilidades y certifica tu conocimiento</title>
+<script>try{var __s=JSON.parse(localStorage.getItem("bayora_session"));if(__s)location.replace(__s.rol==="admin"?"admin.html":"inicio.html")}catch(e){}</script>
+<meta name="description" content="Cursos online diseñados para impulsar tu futuro profesional. Con el respaldo de Bayora Corporation.">
+<style>
+  :root{
+    --night:#06151b;
+    --night-2:#0b232b;
+    --green:#0fd3a0;
+    --green-deep:#0a6b5b;
+    --lime:#c9d800;
+    --ink:#10262b;
+    --ink-soft:#52686d;
+    --paper:#ffffff;
+    --mist:#f1f6f8;
+    --line:#dde6e9;
+    --wrap:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:Roboto,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--paper);line-height:1.5;
+  }
+  a{color:inherit;text-decoration:none}
+  button,input{font:inherit}
+  button{cursor:pointer;border:0;background:none;color:inherit}
+  :focus-visible{outline:2px solid var(--green);outline-offset:3px}
+  .wrap{width:100%;max-width:calc(var(--wrap) + 48px);margin:0 auto;padding:0 24px}
+  svg.i{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+  /* ---------- Cabecera ---------- */
+  .header{position:sticky;top:0;z-index:20;background:var(--night);color:#fff}
+  .header .wrap{display:flex;align-items:center;gap:28px;height:58px}
+  .logo{display:flex;align-items:center;gap:10px}
+  .logo svg{width:30px;height:30px;stroke:var(--green);fill:none;stroke-width:1.6;stroke-linejoin:round}
+  .logo b{display:block;font-size:1.05rem;letter-spacing:.22em;line-height:1.05}
+  .logo small{display:block;font-size:.55rem;letter-spacing:.42em;color:var(--green)}
+  .menu{display:flex;gap:22px;font-size:.88rem}
+  .menu a{padding:18px 0 15px;border-bottom:2px solid transparent;color:#dfeaea;transition:color .15s}
+  .menu a:hover{color:var(--green)}
+  .menu a[aria-current="page"]{color:var(--green);border-color:var(--green)}
+  .hsearch{position:relative;flex:1;max-width:300px}
+  .hsearch input{
+    width:100%;height:36px;padding:0 38px 0 10px;border-radius:6px;
+    border:1px solid #1d3a43;background:#0d2a33;color:#fff;font-size:.82rem;
+  }
+  .hsearch input::placeholder{color:#7f9aa0}
+  .hsearch button{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:1.15rem;color:#e6f2f2;display:grid}
+  .hactions{margin-left:auto;display:flex;align-items:center;gap:18px;font-size:.88rem}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    font-weight:600;font-size:.92rem;border-radius:999px;padding:12px 20px;transition:filter .15s,background .15s,color .15s;
+  }
+  .btn svg{font-size:1.25rem}
+  .btn-green{background:var(--green);color:#03231c}
+  .btn-green:hover{filter:brightness(1.08)}
+  .btn-line{border:1px solid #6b8288;color:#fff}
+  .btn-line:hover{background:rgba(255,255,255,.08)}
+  .btn-lime{background:var(--lime);color:#1c2200;border-radius:6px;padding:9px 16px;font-size:.84rem}
+  .btn-lime:hover{filter:brightness(1.07)}
+  .burger{display:none;font-size:1.5rem;margin-left:auto}
+
+  /* ---------- Portada ---------- */
+  .hero{position:relative;background:var(--night);color:#fff;overflow:hidden;min-height:450px}
+  .hero-photo{
+    position:absolute;inset:0;
+    background:url("img/hero.png") right center/cover no-repeat,var(--night);
+  }
+  .hero .wrap{position:relative;display:flex;align-items:center;min-height:450px;padding-top:36px;padding-bottom:36px}
+  .hero-copy{max-width:600px}
+  .eyebrow{font-size:.74rem;letter-spacing:.22em;font-weight:500;text-transform:uppercase}
+  .hero h1{font-size:clamp(2.6rem,6vw,3.8rem);line-height:1.05;margin:14px 0 18px;letter-spacing:-.015em;font-weight:700}
+  .hero h1 span{color:var(--green)}
+  .hero .lead{font-size:1.12rem;font-weight:500;max-width:46ch}
+  .hero .sub{margin-top:14px;color:#c9d9db;font-size:.95rem;max-width:44ch}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .hero-tag{
+    position:absolute;right:24px;bottom:48px;border-left:2px solid var(--green);padding:6px 0 4px 16px;
+    font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;max-width:230px;line-height:1.5;
+  }
+  .hero-tag svg{display:block;font-size:1.3rem;color:var(--green);margin-bottom:10px}
+  .hero-tag i{display:block;width:68px;height:2px;background:var(--green);margin-top:8px}
+
+  /* ---------- Secciones ---------- */
+  .block{padding:44px 0 56px}
+  .block.tinted{background:var(--mist)}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+  .kicker{font-size:.7rem;letter-spacing:.24em;color:var(--green-deep);font-weight:600;text-transform:uppercase}
+  .head h2{font-size:clamp(1.6rem,3.4vw,2.1rem);letter-spacing:-.01em;line-height:1.15;margin-top:4px}
+  .more{display:inline-flex;align-items:center;gap:10px;color:var(--green-deep);font-size:.9rem;font-weight:500}
+  .more svg{font-size:1.4rem}
+  .more:hover{text-decoration:underline}
+
+  /* ---------- Tarjetas de curso ---------- */
+  .courses{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .course{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:8px;overflow:hidden;transition:transform .18s,box-shadow .18s}
+  .course:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(8,30,36,.10)}
+  .thumb{height:160px;position:relative;background-size:cover;background-position:center}
+  .thumb svg{width:100%;height:100%;display:block}
+  .cmeta{display:flex;justify-content:space-between;align-items:center;padding:8px 10px 0;font-size:.74rem;color:var(--ink-soft)}
+  .save{font-size:1.2rem;display:grid;color:var(--ink);padding:2px;border-radius:4px}
+  .save[aria-pressed="true"] svg{fill:var(--green-deep);stroke:var(--green-deep)}
+  .cbody{padding:8px 14px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .cbody h3{font-size:1rem;line-height:1.35;min-height:2.7em}
+  .inst{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--ink-soft)}
+  .av{width:22px;height:22px;border-radius:4px;display:grid;place-items:center;font-size:.6rem;font-weight:700;color:#fff}
+  .cfoot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--line)}
+  .rate{font-size:.8rem;color:var(--ink-soft)}
+  .rate b{color:#b97d00}
+  .price{font-weight:700;font-size:.95rem}
+  .price.free{color:var(--green-deep)}
+  .view{margin-top:2px;font-size:.84rem;font-weight:600;color:var(--ink);letter-spacing:.02em}
+  .view:hover{color:var(--green-deep)}
+
+  /* ---------- Buscador + categorías ---------- */
+  .bigsearch{display:flex;gap:8px;margin-bottom:22px}
+  .bigsearch .field{flex:1;display:flex;align-items:center;background:var(--paper);border-radius:6px;border:1px solid var(--line);padding-left:10px}
+  .bigsearch .field svg{font-size:1.25rem;color:var(--ink-soft)}
+  .bigsearch input{flex:1;height:46px;border:0;padding:0 12px;font-size:.95rem;background:transparent;color:var(--ink);min-width:0}
+  .bigsearch input:focus{outline:none}
+  .bigsearch .field:focus-within{border-color:var(--green)}
+  .go{width:56px;border-radius:6px;background:var(--green);color:#03231c;display:grid;place-items:center;font-size:1.4rem}
+  .go:hover{filter:brightness(1.08)}
+  .cats{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
+  .cat{
+    background:var(--paper);border:1px solid var(--line);border-radius:6px;min-height:118px;padding:16px 8px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;
+    font-size:.82rem;line-height:1.3;transition:border-color .15s,transform .15s;
+  }
+  .cat svg{font-size:1.7rem;color:var(--green-deep)}
+  .cat:hover{border-color:var(--green);transform:translateY(-2px)}
+
+  /* ---------- Cifras ---------- */
+  .stats{background:linear-gradient(100deg,#0a4a3f 0%,#08262a 55%,#06151b 100%);color:#fff;padding:40px 0}
+  .stats .wrap{display:grid;grid-template-columns:minmax(220px,1.1fr) 3fr;gap:32px;align-items:center}
+  .stats h2{font-size:1.5rem;line-height:1.25;letter-spacing:-.01em}
+  .stats .kicker{color:var(--green)}
+  .nums{display:grid;grid-template-columns:repeat(4,1fr)}
+  .num{text-align:center;padding:6px 10px;border-right:1px solid rgba(255,255,255,.14)}
+  .num:last-child{border-right:0}
+  .num svg{font-size:1.9rem;color:var(--green)}
+  .num b{display:block;font-size:2rem;margin:6px 0 2px;line-height:1.1}
+  .num span{font-size:.84rem;color:#d3e2e2}
+
+  /* ---------- Pie ---------- */
+  .footer{background:var(--night);color:#cfdcdc;padding:36px 0 22px;font-size:.84rem}
+  .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:36px}
+  .footer .logo{color:#fff;margin-bottom:14px}
+  .footer p{color:#a3b8ba;max-width:32ch}
+  .footer h4{color:#fff;font-size:.88rem;font-weight:500;margin-bottom:14px}
+  .footer ul{list-style:none;display:grid;gap:12px}
+  .footer ul a:hover{color:var(--green)}
+  .social{display:flex;gap:14px;font-size:1.3rem;padding-bottom:18px;border-bottom:1px solid #1b3640}
+  .social a{color:#b8c9ca;display:grid}
+  .social a:hover{color:var(--green)}
+  .copy{margin-top:16px;text-align:center;font-size:.72rem;color:#8da4a7;max-width:30ch;margin-inline:auto}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1020px){
+    .courses{grid-template-columns:repeat(2,1fr)}
+    .cats{grid-template-columns:repeat(4,1fr)}
+    .stats .wrap{grid-template-columns:1fr}
+    .hero-tag{display:none}
+  }
+  @media (max-width:860px){
+    .menu,.hsearch,.hactions .login{display:none}
+    .burger{display:block}
+    .header.open .menu{
+      display:flex;flex-direction:column;gap:0;position:absolute;top:58px;left:0;right:0;
+      background:var(--night);padding:8px 24px 16px;border-top:1px solid #16303a;
+    }
+    .header.open .menu a{padding:12px 0;border:0}
+    .hactions{margin-left:auto;margin-right:12px}
+    .burger{margin-left:0}
+    .hero-photo{opacity:.4;background-position:72% center}
+    .fgrid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:560px){
+    .courses{grid-template-columns:1fr}
+    .cats{grid-template-columns:repeat(2,1fr)}
+    .nums{grid-template-columns:1fr 1fr;row-gap:22px}
+    .num:nth-child(2){border-right:0}
+    .fgrid{grid-template-columns:1fr}
+    .hero .wrap{min-height:420px}
+  }
+  .hello{font-size:.84rem;color:#b9cfd1}
+  button.login{color:#fff;font-size:.88rem}
+  button.login:hover{color:var(--green)}
+
+  /* ---------- Ventana de acceso ---------- */
+  .auth{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:16px;background:rgba(3,12,16,.74);backdrop-filter:blur(5px)}
+  .auth[hidden]{display:none}
+  .auth-card{
+    display:grid;grid-template-columns:1fr 1fr;width:min(940px,100%);
+    max-height:calc(100vh - 32px);overflow:auto;border-radius:22px;background:#f6f9f9;
+    box-shadow:0 30px 80px rgba(0,0,0,.55);
+  }
+  .auth-side{background:#08161b;color:#fff;padding:36px;display:flex;flex-direction:column;gap:22px}
+  .auth-logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:1.08rem}
+  .auth-logo svg{width:30px;height:30px;stroke:var(--green);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .auth-side h2{font-size:clamp(1.6rem,3vw,2.05rem);line-height:1.15;letter-spacing:-.01em;margin-top:18px}
+  .auth-side > p{color:#c3d3d5;line-height:1.55;max-width:36ch}
+  .auth-promo{border:1px solid #1f4a4e;background:#0f2a30;border-radius:16px;padding:24px}
+  .auth-promo svg{width:50px;height:50px;stroke:var(--green);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;margin-bottom:18px}
+  .auth-promo b{display:block;font-size:1.02rem;margin-bottom:12px}
+  .auth-promo span{font-size:.86rem;color:#b7c9cb}
+
+  .auth-main{position:relative;padding:34px 36px 28px;display:flex;flex-direction:column}
+  .auth-close{position:absolute;top:22px;right:26px;background:#e6eeef;color:var(--ink);padding:7px 14px;border-radius:8px;font-size:.78rem}
+  .auth-close:hover{background:#d8e4e6}
+  .auth-eyebrow{margin-top:34px;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green-deep);font-weight:600}
+  .auth-main h3{font-size:1.75rem;letter-spacing:-.01em;margin:8px 0 4px}
+  .auth-sub{font-size:.88rem;color:var(--ink-soft);margin-bottom:16px}
+  .auth form{display:flex;flex-direction:column;gap:12px}
+  .auth form[hidden]{display:none}
+  .fld{display:flex;flex-direction:column;gap:6px;font-size:.8rem;font-weight:500}
+  .inp{position:relative}
+  .inp input{
+    width:100%;height:46px;padding:0 14px;border-radius:8px;border:1px solid #8c9da1;background:#fff;
+    color:var(--ink);font-size:.92rem;
+  }
+  .inp select{width:100%;height:46px;padding:0 12px;border-radius:8px;border:1px solid #8c9da1;background:#fff;color:var(--ink);font-size:.92rem}
+  .inp input::placeholder{color:#8a9a9e}
+  .inp input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 4px rgba(15,211,160,.2)}
+  .inp input[aria-invalid="true"]{border-color:#c0392b}
+  .inp .eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.74rem;color:var(--green-deep);font-weight:600;padding:6px 8px;border-radius:6px}
+  .inp.has-eye input{padding-right:70px}
+  .row-end{display:flex;justify-content:flex-end;margin-top:-4px}
+  .link{color:var(--green-deep);font-weight:600;font-size:.84rem;padding:4px 0}
+  .link:hover{text-decoration:underline}
+  .center{align-self:center;margin-top:6px}
+  .auth .btn{width:100%;border-radius:8px;padding:13px 16px;font-size:.92rem}
+  .auth .btn-main{background:#00cdb8;color:#03231c}
+  .auth .btn-main:hover{filter:brightness(1.06)}
+  .auth .btn-main[disabled]{opacity:.6;cursor:wait}
+  .auth .btn-google{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .auth .btn-google:hover{border-color:#9db3b7}
+  .terms{display:flex;gap:10px;align-items:flex-start;font-size:.8rem;color:var(--ink-soft);line-height:1.4}
+  .terms input{margin-top:3px;accent-color:#00a896;width:16px;height:16px;flex:none}
+  .terms a{color:var(--green-deep);font-weight:600}
+  .msg{font-size:.82rem;line-height:1.4;padding:10px 12px;border-radius:8px}
+  .msg[hidden]{display:none}
+  .msg.err{background:#fdecea;color:#8f2a1f}
+  .msg.ok{background:#e1f6ef;color:#0a5c4a}
+
+  @media (max-width:720px){
+    .auth-card{grid-template-columns:1fr}
+    .auth-side{padding:20px 22px;gap:8px}
+    .auth-side h2{margin-top:6px;font-size:1.3rem}
+    .auth-side > p,.auth-promo{display:none}
+    .auth-main{padding:22px 22px 24px}
+    .auth-eyebrow{margin-top:8px}
+    .auth-close{top:14px;right:16px}
+  }
+  @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes zoom{from{transform:scale(1.1)}to{transform:none}}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(15,211,160,.55)}70%,100%{box-shadow:0 0 0 14px rgba(15,211,160,0)}}
+  .hero-photo{animation:zoom 14s ease-out both}
+  .hero-copy>*{animation:up .8s both}.hero-copy>:nth-child(2){animation-delay:.1s}.hero-copy>:nth-child(3){animation-delay:.2s}.hero-copy>:nth-child(4){animation-delay:.3s}.hero-copy>:nth-child(5){animation-delay:.4s}
+  .hero .btn-green{animation:up .8s .4s both,pulse 2.6s 1.4s infinite}
+  .rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}.rv.in{opacity:1;transform:none}.course.rv.in:hover{transform:translateY(-3px)}
+  .course[hidden]{display:none}
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important;scroll-behavior:auto !important}.rv{opacity:1;transform:none}}
+
+  /* ===== Efectos extra de la portada ===== */
+  @keyframes bz-down{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:none}}
+  @keyframes bz-fade{from{opacity:0}to{opacity:1}}
+  @keyframes bz-flow{to{background-position:300% 0}}
+  @keyframes bz-orb{0%{transform:translate3d(0,0,0) scale(.6);opacity:0}15%{opacity:.9}85%{opacity:.6}100%{transform:translate3d(var(--dx,30px),-520px,0) scale(1.15);opacity:0}}
+  @keyframes bz-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  @keyframes bz-wiggle{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(-12deg) scale(1.2)}60%{transform:rotate(9deg) scale(1.2)}}
+  @keyframes bz-bg{from{background-position:0% 50%}to{background-position:100% 50%}}
+  @keyframes bz-modal{from{opacity:0;transform:translateY(26px) scale(.96)}to{opacity:1;transform:none}}
+  @keyframes bz-shake{0%,100%{transform:none}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+  @keyframes bz-rip{to{transform:scale(1);opacity:0}}
+  @keyframes bz-bm{0%{transform:scale(1)}40%{transform:scale(1.5) rotate(-10deg)}100%{transform:scale(1)}}
+  html{scroll-padding-top:70px}
+  #bz-prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,#19b5c4,#0fd3a0,#c9d800);transform:scaleX(0);transform-origin:left;pointer-events:none}
+  body{transition:opacity .18s ease}body.bz-out{opacity:0}
+  /* cabecera */
+  .header{animation:bz-down .6s cubic-bezier(.2,.8,.2,1) backwards;transition:background .3s,box-shadow .3s}
+  .header.sc{background:rgba(6,21,27,.82);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);box-shadow:0 8px 26px rgba(0,0,0,.28)}
+  .logo svg{transition:transform .45s cubic-bezier(.3,1.6,.5,1)}.logo:hover svg{transform:rotate(60deg) scale(1.12)}
+  .menu a{position:relative}
+  .menu a::after{content:'';position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+  .menu a:hover::after{transform:scaleX(1)}
+  .hsearch input{transition:border-color .2s,box-shadow .2s,background .2s}.hsearch input:focus{outline:none;border-color:var(--green);background:#10323c;box-shadow:0 0 0 4px rgba(15,211,160,.18)}
+  /* portada */
+  .hero-photo{inset:-24px;translate:var(--px,0px) var(--py,0px);transition:translate .25s ease-out}
+  .hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px circle at var(--sx,70%) var(--sy,40%),rgba(15,211,160,.16),transparent 60%);opacity:0;transition:opacity .4s}
+  .hero:hover::after{opacity:1}
+  .hero h1 span{background:linear-gradient(90deg,#0fd3a0,#19b5c4,#c9d800,#0fd3a0);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:bz-flow 7s linear infinite}
+  .eyebrow{position:relative;padding-left:0}
+  .orb{position:absolute;bottom:-30px;border-radius:50%;background:radial-gradient(circle,rgba(15,211,160,.6),rgba(25,181,196,.18) 55%,transparent 72%);pointer-events:none;opacity:0;animation:bz-orb var(--d,12s) linear var(--dl,0s) infinite}
+  .hero-tag{animation:bz-float 5s ease-in-out infinite}
+  .hero-tag i{transform-origin:left;animation:bz-grow 1.2s .8s backwards}
+  @keyframes bz-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  /* botones */
+  .btn,.go{position:relative;overflow:hidden}
+  .btn{transition:filter .15s,background .15s,color .15s,transform .15s,box-shadow .2s}
+  .btn:hover{transform:translateY(-2px)}.btn:active{transform:scale(.97)}
+  .btn-green:hover{box-shadow:0 10px 26px rgba(15,211,160,.4)}.btn-lime:hover{box-shadow:0 8px 20px rgba(201,216,0,.35)}
+  .btn-green svg,.more svg{transition:transform .25s}.btn-green:hover svg,.more:hover svg{transform:translateX(5px)}
+  .go{transition:filter .15s,transform .15s}.go:hover{transform:scale(1.06)}
+  .bz-rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);transform:scale(0);animation:bz-rip .6s ease-out forwards;pointer-events:none}
+  .btn-line .bz-rip{background:rgba(255,255,255,.3)}
+  /* encabezados de sección */
+  .kicker{position:relative}
+  .head .kicker::after{content:'';display:block;height:2px;width:0;background:var(--green);margin-top:6px;transition:width .8s .3s ease}
+  .head.in .kicker::after{width:38px}
+  /* tarjetas de curso */
+  .course{position:relative}
+  .course.rv.in{transition:opacity .7s ease,transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s}
+  .course.rv.in.tl{transition:opacity .7s ease,transform .08s linear,box-shadow .3s,border-color .3s}
+  .course.rv.in:hover{transform:perspective(800px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-6px);box-shadow:0 18px 36px rgba(8,30,36,.16);border-color:#bfe9df}
+  .course::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);transform:skewX(-18deg);transition:left .7s;pointer-events:none;z-index:3}
+  .course:hover::after{left:130%}
+  .thumb{overflow:hidden;transition:filter .4s}.course:hover .thumb{filter:saturate(1.25) brightness(1.06)}
+  .thumb::before{content:'';position:absolute;inset:0;background:radial-gradient(180px circle at var(--mx,50%) var(--my,30%),rgba(255,255,255,.3),transparent 60%);opacity:0;transition:opacity .25s}.course:hover .thumb::before{opacity:1}
+  .save{transition:transform .2s,background .2s}.save:hover{background:var(--mist);transform:scale(1.15)}
+  .save[aria-pressed="true"] svg{animation:bz-bm .45s ease}
+  .view{position:relative;align-self:flex-start}
+  .view::after{content:'';position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+  .view:hover::after{transform:scaleX(1)}
+  /* categorías */
+  .cat{position:relative;overflow:hidden}
+  .cat.rv.in{transition:opacity .7s ease,transform .25s cubic-bezier(.2,.8,.2,1),border-color .2s,box-shadow .25s}
+  .cat.rv.in:hover{transform:translateY(-5px);box-shadow:0 12px 24px rgba(8,30,36,.1)}
+  .cat::after{content:'';position:absolute;top:0;left:-70%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(15,211,160,.18),transparent);transform:skewX(-18deg);transition:left .6s;pointer-events:none}
+  .cat:hover::after{left:130%}
+  .cat:hover svg{animation:bz-wiggle .6s}
+  .bigsearch .field{transition:border-color .2s,box-shadow .2s}.bigsearch .field:focus-within{box-shadow:0 0 0 4px rgba(15,211,160,.18)}
+  /* cifras */
+  .stats{background-size:200% 100%;animation:bz-bg 14s ease-in-out infinite alternate}
+  .num svg{animation:bz-float 3.6s ease-in-out infinite}.num:nth-child(2) svg{animation-delay:-.9s}.num:nth-child(3) svg{animation-delay:-1.8s}.num:nth-child(4) svg{animation-delay:-2.7s}
+  .num b{text-shadow:0 0 22px rgba(15,211,160,.38)}
+  /* pie */
+  .social a{transition:transform .2s cubic-bezier(.3,1.6,.5,1),color .15s}.social a:hover{transform:translateY(-4px) scale(1.2)}
+  .footer ul a{display:inline-block;transition:transform .2s,color .15s}.footer ul a:hover{transform:translateX(5px)}
+  /* ventana de acceso */
+  .auth:not([hidden]){animation:bz-fade .25s ease}
+  .auth:not([hidden]) .auth-card{animation:bz-modal .45s cubic-bezier(.2,.9,.3,1.12)}
+  .auth form:not([hidden]){animation:bz-fade .35s ease}
+  .auth-promo svg{animation:bz-float 4s ease-in-out infinite}
+  .auth-close{transition:background .15s,transform .15s}.auth-close:hover{transform:scale(1.06)}
+  .msg.err:not([hidden]){animation:bz-shake .4s}.msg.ok:not([hidden]){animation:bz-fade .3s}
+  /* volver arriba */
+  #bz-top{position:fixed;right:22px;bottom:22px;z-index:40;width:46px;height:46px;border-radius:50%;background:var(--green);color:#03231c;display:grid;place-items:center;font-size:1.3rem;box-shadow:0 8px 22px rgba(15,211,160,.4);opacity:0;transform:translateY(16px) scale(.8);pointer-events:none;transition:opacity .3s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+  #bz-top.on{opacity:1;transform:none;pointer-events:auto}#bz-top:hover{transform:translateY(-3px) scale(1.08)}
+</style>
+</head>
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header" id="header">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Bayora Academy, inicio">
+      <svg viewBox="0 0 32 32"><path d="M16 3l11 6.3v12.4L16 28 5 21.7V9.3zM5 9.3l11 6.4 11-6.4M16 15.7V28"/></svg>
+      <span><b>BAYORA</b><small>ACADEMY</small></span>
+    </a>
+    <nav class="menu" aria-label="Principal">
+      <a href="index.html" aria-current="page">Inicio</a>
+      <a href="#destacados">Cursos</a>
+      <a href="#categorias">Categorías</a>
+      <a href="#nosotros">Nosotros</a>
+    </nav>
+    <form class="hsearch" role="search" onsubmit="return false">
+      <input type="search" placeholder="Buscar cursos..." aria-label="Buscar cursos">
+      <button type="submit" aria-label="Buscar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+    </form>
+    <div class="hactions" id="hactions">
+      <button class="login" type="button" data-auth="login">Iniciar sesión</button>
+      <button class="btn btn-lime" type="button" data-auth="register">Crear cuenta</button>
+    </div>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main>
+  <!-- ===== PORTADA ===== -->
+  <section class="hero">
+    <div class="hero-photo" role="img" aria-label="Estudiante aprendiendo en línea con auriculares"></div>
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Bienvenido a</p>
+        <h1>Bayora <span>Academy</span></h1>
+        <p class="lead">Aprende, desarrolla tus habilidades y certifica tu conocimiento.</p>
+        <p class="sub">Cursos online diseñados para impulsar tu futuro profesional. Con el respaldo de Bayora Corporation.</p>
+        <div class="hero-cta">
+          <a class="btn btn-green" href="#destacados">Explorar cursos
+            <svg class="i" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-line" href="#categorias">
+            <svg class="i" viewBox="0 0 24 24"><path d="M3 5h6a3 3 0 013 3v12a2 2 0 00-2-2H3zM21 5h-6a3 3 0 00-3 3v12a2 2 0 012-2h7z"/></svg>Ver catálogo</a>
+        </div>
+      </div>
+      <div class="hero-tag">
+        <svg class="i" viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg>
+        Conocimiento que impulsa el mañana<i></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CURSOS DESTACADOS ===== -->
+  <section class="block" id="destacados">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="kicker">Cursos destacados</p><h2>Impulsa tu crecimiento profesional</h2></div>
+        <a class="more" href="catalogo.html">Ver todos los cursos
+          <svg class="i" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="courses" id="courses"></div>
+    </div>
+  </section>
+
+  <!-- ===== BUSCADOR Y CATEGORÍAS ===== -->
+  <section class="block tinted" id="categorias">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="kicker">Encuentra</p><h2>El curso que necesitas</h2></div>
+        <a class="more" href="catalogo.html">Explora todas las categorías
+          <svg class="i" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      </div>
+      <form class="bigsearch" role="search" onsubmit="return false">
+        <label class="field">
+          <svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input type="search" placeholder="¿Qué quieres aprender?" aria-label="¿Qué quieres aprender?">
+        </label>
+        <button class="go" type="submit" aria-label="Buscar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+      </form>
+      <div class="cats" id="cats"></div>
+    </div>
+  </section>
+
+  <!-- ===== CIFRAS ===== -->
+  <section class="stats" id="nosotros">
+    <div class="wrap">
+      <div>
+        <p class="kicker">Tu confianza nos impulsa</p>
+        <h2>Juntos seguimos haciendo crecer el conocimiento</h2>
+      </div>
+      <div class="nums" id="nums"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== PIE ===== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="logo" href="index.html">
+          <svg viewBox="0 0 32 32"><path d="M16 3l11 6.3v12.4L16 28 5 21.7V9.3zM5 9.3l11 6.4 11-6.4M16 15.7V28"/></svg>
+          <span><b>BAYORA</b><small>ACADEMY</small></span>
+        </a>
+        <p>Bayora Academy — Una plataforma educativa de Bayora Corporation.</p>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul><li><a href="index.html">Inicio</a></li><li><a href="#destacados">Cursos</a></li><li><a href="#categorias">Categorías</a></li><li><a href="#nosotros">Nosotros</a></li></ul>
+      </div>
+      <div>
+        <h4>Soporte</h4>
+        <ul><li><a href="#">Centro de ayuda</a></li><li><a href="#">Términos y condiciones</a></li><li><a href="#">Política de privacidad</a></li><li><a href="#">Contacto</a></li></ul>
+      </div>
+      <div>
+        <h4>Síguenos</h4>
+        <div class="social">
+          <a href="#" aria-label="Facebook"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M13.5 20v-7h2.3l.4-2.7h-2.7V8.6c0-.8.3-1.4 1.4-1.4h1.4V4.8a15 15 0 00-2-.1c-2 0-3.4 1.2-3.4 3.4v2.2H8.5V13h2.4v7"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg class="i" viewBox="0 0 24 24"><path d="M3 21l1.4-4.5A9 9 0 1112 21a9 9 0 01-4.3-1.1zM9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4 4 0 01-2-2l.8-1-1-2z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg class="i" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="M10 9l5 3-5 3z"/></svg></a>
+          <a href="#" aria-label="X"><svg class="i" viewBox="0 0 24 24"><path d="M4 4l16 16M20 4L4 20"/></svg></a>
+        </div>
+        <p class="copy">© 2026 Bayora Corporation. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== VENTANA DE ACCESO ===== -->
+<div class="auth" id="auth" hidden>
+  <div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <section class="auth-side">
+      <div class="auth-logo">
+        <svg viewBox="0 0 32 32"><path d="M16 5L2.5 12 16 19l11-5.7V21M7 15.5v6c0 2 4 4 9 4s9-2 9-4v-6"/></svg>
+        Bayora Academy
+      </div>
+      <h2 id="side-title"></h2>
+      <p id="side-text"></p>
+      <div class="auth-promo">
+        <svg viewBox="0 0 48 48"><path d="M5 9h14a5 5 0 015 5v26a4 4 0 00-4-4H5zM43 9H29a5 5 0 00-5 5v26a4 4 0 014-4h15zM38 3l1 3 3 1-3 1-1 3-1-3-3-1 3-1z"/></svg>
+        <b id="promo-title"></b>
+        <span id="promo-text"></span>
+      </div>
+    </section>
+
+    <section class="auth-main">
+      <button class="auth-close" type="button" id="auth-close">Cerrar ×</button>
+      <p class="auth-eyebrow" id="auth-eyebrow"></p>
+      <h3 id="auth-title"></h3>
+      <p class="auth-sub" id="auth-sub"></p>
+
+      <!-- Iniciar sesión -->
+      <form id="form-login" novalidate>
+        <label class="fld">Correo electrónico
+          <span class="inp"><input type="email" name="email" placeholder="tu@email.com" autocomplete="email" required></span></label>
+        <label class="fld">Contraseña
+          <span class="inp has-eye"><input type="password" name="password" placeholder="Tu contraseña" autocomplete="current-password" required>
+            <button class="eye" type="button" data-eye>Mostrar</button></span></label>
+        <div class="row-end"><button class="link" type="button" data-go="recover">Recuperar contraseña</button></div>
+        <p class="msg err" role="alert" hidden></p>
+        <button class="btn btn-main" type="submit">Iniciar sesión</button>
+        <button class="btn btn-google" type="button" data-google>Continuar con Google</button>
+        <button class="link center" type="button" data-go="register">Crear una cuenta</button>
+      </form>
+
+      <!-- Crear cuenta -->
+      <form id="form-register" novalidate hidden>
+        <label class="fld">Nombre completo
+          <span class="inp"><input type="text" name="nombre" placeholder="Tu nombre y apellido" autocomplete="name" required></span></label>
+        <label class="fld">Correo electrónico
+          <span class="inp"><input type="email" name="email" placeholder="tu@email.com" autocomplete="email" required></span></label>
+        <label class="fld">Contraseña
+          <span class="inp has-eye"><input type="password" name="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" required>
+            <button class="eye" type="button" data-eye>Mostrar</button></span></label>
+        <fieldset class="fld" style="border:0;min-width:0"><legend style="margin-bottom:6px">¿Cómo quieres usar Bayora?</legend>
+<label style="display:flex;gap:10px;align-items:flex-start;border:1px solid #c3d0d3;border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer"><input type="radio" name="quiero" value="alumno" checked style="margin-top:4px;width:auto"><span><b>Soy alumno</b><br><small>Aprende con cursos y obtén certificados.</small></span></label>
+<label style="display:flex;gap:10px;align-items:flex-start;border:1px solid #c3d0d3;border-radius:10px;padding:10px 12px;cursor:pointer"><input type="radio" name="quiero" value="ensenar" style="margin-top:4px;width:auto"><span><b>Quiero ser instructor</b><br><small>Crea y publica cursos. El administrador debe aprobar tu solicitud; mientras tanto entras como alumno.</small></span></label></fieldset>
+        <label class="terms"><input type="checkbox" name="terms">
+          <span>Acepto los <a href="#">Términos y condiciones</a> y la <a href="#">Política de privacidad</a>.</span></label>
+        <p class="msg err" role="alert" hidden></p>
+        <button class="btn btn-main" type="submit">Crear cuenta</button>
+        <button class="btn btn-google" type="button" data-google>Registrarme con Google</button>
+        <button class="link center" type="button" data-go="login">Ya tengo una cuenta</button>
+      </form>
+
+      <!-- Recuperar contraseña -->
+      <form id="form-recover" novalidate hidden>
+        <label class="fld">Correo electrónico
+          <span class="inp"><input type="email" name="email" placeholder="tu@email.com" autocomplete="email" required></span></label>
+        <p class="msg err" role="alert" hidden></p>
+        <p class="msg ok" hidden></p>
+        <button class="btn btn-main" type="submit">Enviar instrucciones</button>
+        <button class="link center" type="button" data-go="login">Volver a iniciar sesión</button>
+      </form>
+    </section>
+  </div>
+</div>
+
+<script src="bayora.js"></script>
+<script>
+/* ==========================================================
+   DATOS DE EJEMPLO (editables).
+   Más adelante vendrán de la base de datos.
+   Para usar fotos reales: crea una carpeta "img" junto a este
+   archivo y escribe el nombre en "imagen" (ej: "img/curso1.jpg").
+   ========================================================== */
+const cursos = BY.get('courses').filter(c => c.estado === 'publicado');
+
+const categorias = [
+  ["Ciencia y Tecnología",'<circle cx="12" cy="12" r="1.6"/><ellipse cx="12" cy="12" rx="9" ry="3.8"/><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(120 12 12)"/>'],
+  ["Biotecnología",'<path d="M7 3c0 6 10 6 10 12s-10 6-10 6M17 3c0 6-10 6-10 12s10 6 10 6M8 7h8M8 17h8M9 12h6"/>'],
+  ["Salud y Bienestar",'<path d="M12 20s-8-4.6-8-10.2A4.3 4.3 0 0112 7.6a4.3 4.3 0 018 2.2C20 15.4 12 20 12 20zM6 12h3l1.5-2.5 2 4 1.5-1.5H18"/>'],
+  ["Medio Ambiente",'<path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14zM5 19c3-4 6-6.5 10-8"/>'],
+  ["Negocios y Gestión",'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2M3 13h18"/>'],
+  ["Idiomas",'<path d="M3 6h9M7.5 4v2M5 6c.8 3.5 3 6 6 7.5M10 6c-.8 3.5-3 6-6 7.5M12 20l4.5-10L21 20M13.7 16.5h5.6"/>'],
+  ["Diseño y Creatividad",'<path d="M12 3a9 9 0 100 18c1.4 0 2-.9 2-1.8 0-1.4-1-1.5-1-2.7 0-1 .8-1.5 1.8-1.5H17a4 4 0 004-4c0-4.4-4-8-9-8z"/><path d="M7.5 11h.01M10 7.5h.01M14.5 7.5h.01"/>'],
+  ["Otros",'<circle cx="12" cy="12" r="9"/><path d="M8 12h.01M12 12h.01M16 12h.01"/>']
+];
+
+const iniciales = n => n.replace(/^(Dr\.|Dra\.|Ing\.|Lic\.)\s*/,"").split(" ").map(p=>p[0]).slice(0,2).join("");
+
+/* --- Cursos destacados --- */
+const cont = document.getElementById("courses");
+cursos.forEach(c => {
+  const el = document.createElement("article");
+  el.className = "course";
+  const precio = c.precio === 0 ? '<span class="price free">Gratis</span>' : `<span class="price">S/ ${c.precio}</span>`;
+  el.innerHTML = `
+    <div class="thumb" data-m="${c.portada||''}" style="background-image:linear-gradient(135deg,${c.colores[0]},${c.colores[1]})"></div>
+    <div class="cmeta"><span>${c.categoria}</span>
+      <button class="save" aria-pressed="false" aria-label="Guardar curso">
+        <svg class="i" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg></button></div>
+    <div class="cbody">
+      <h3>${c.titulo}</h3>
+      <div class="inst"><span class="av" style="background:${c.colores[0]}">${iniciales(c.instructor)}</span>${c.instructor}</div>
+      <div class="cfoot"><span class="rate"><b>★ ${c.rating.toFixed(1)}</b></span>${precio}</div>
+      <a class="view" href="curso.html?id=${c.id}">Ver curso</a>
+    </div>`;
+  const btn = el.querySelector(".save");
+  btn.addEventListener("click", () => btn.setAttribute("aria-pressed", btn.getAttribute("aria-pressed") === "false"));
+  cont.appendChild(el);
+});
+
+/* --- Categorías --- */
+document.getElementById("cats").innerHTML = categorias.map(([n, d]) =>
+  `<a class="cat" href="catalogo.html"><svg class="i" viewBox="0 0 24 24">${d}</svg>${n}</a>`).join("");
+
+/* --- Cifras (de ejemplo; "Cursos publicados" se calcula con los cursos de arriba) --- */
+const cifras = [
+  [cursos.length, "Cursos publicados", '<path d="M3 5h6a3 3 0 013 3v12a2 2 0 00-2-2H3zM21 5h-6a3 3 0 00-3 3v12a2 2 0 012-2h7z"/>'],
+  [BY.get('users').filter(u => u.rol !== 'admin').length, "Estudiantes", '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.5a3.5 3.5 0 010 7M18 14.2c2.2.6 3.5 2.6 3.5 5.8"/>'],
+  [BY.get('users').filter(u => u.instructor).length, "Instructores", '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>'],
+  [BY.certs(), "Certificados emitidos", '<circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/>']
+];
+document.getElementById("nums").innerHTML = cifras.map(([v, t, d]) =>
+  `<div class="num"><svg class="i" viewBox="0 0 24 24">${d}</svg><b>${v}</b><span>${t}</span></div>`).join("");
+
+BY.hydrate(cont);
+/* --- Buscador de cursos --- */
+document.querySelectorAll('input[type="search"]').forEach(inp => inp.addEventListener("input", () => {
+  const q = inp.value.trim().toLowerCase();
+  cont.querySelectorAll(".course").forEach(c => c.hidden = q && !c.textContent.toLowerCase().includes(q));
+  if (q) document.getElementById("destacados").scrollIntoView({behavior:"smooth"});
+}));
+if (!cursos.length) cont.innerHTML = '<p>Pronto publicaremos nuevos cursos.</p>';
+
+/* --- Animaciones: aparecer al desplazar y contadores --- */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); const t = e.target; setTimeout(() => { t.style.transitionDelay = ""; }, 1000); } }), {threshold:.15});
+document.querySelectorAll(".course,.cat,.num,.head").forEach((el,i) => { el.classList.add("rv"); el.style.transitionDelay = (i%4)*70+"ms"; io.observe(el); });
+document.querySelectorAll(".num b").forEach(b => { const n = +b.textContent; if (!n) return; let t0; const f = t => { t0 ??= t; const k = Math.min((t-t0)/1200,1); b.textContent = Math.round(n*k); if (k<1) requestAnimationFrame(f); }; b.textContent = 0; new IntersectionObserver((e,o) => { if (e[0].isIntersecting) { requestAnimationFrame(f); o.disconnect(); } }).observe(b); });
+
+/* --- Menú móvil --- */
+const header = document.getElementById("header"), burger = document.getElementById("burger");
+burger.addEventListener("click", () => {
+  const open = header.classList.toggle("open");
+  burger.setAttribute("aria-expanded", open);
+});
+document.querySelectorAll(".menu a").forEach(a => a.addEventListener("click", () => header.classList.remove("open")));
+</script>
+
+<script>
+/* ==========================================================
+   CUENTAS (MODO DEMOSTRACIÓN)
+   Las cuentas se guardan en este navegador (localStorage).
+   Sirve para probar todo el recorrido, pero NO es seguro ni
+   compartido entre dispositivos. Cuando conectemos Supabase,
+   las funciones registrar / entrar / salir se reemplazan por
+   las reales y el resto de la página queda igual.
+   ========================================================== */
+(() => {
+  const USERS = "bayora_users", SESSION = "bayora_session";
+  const $ = (s, r = document) => r.querySelector(s);
+  const read = (k, f) => { try { return JSON.parse(localStorage.getItem(k)) ?? f; } catch { return f; } };
+  const write = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } };
+  const getSession = () => read(SESSION, null);
+
+  async function hash(texto) {
+    const data = new TextEncoder().encode("bayora:" + texto);
+    if (window.crypto && crypto.subtle) {
+      const b = await crypto.subtle.digest("SHA-256", data);
+      return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("");
+    }
+    return btoa(String.fromCharCode(...data)); // respaldo si el navegador no tiene crypto
+  }
+
+  /* ----- Textos de cada pantalla ----- */
+  const T = {
+    login: {
+      side: ["Sigue descubriendo.<br>Sigue aprendiendo.", "Encuentra cursos, descubre nuevas perspectivas y aprende a tu ritmo en Bayora.", "Explora. Aprende. Crece.", "Un nuevo tema puede abrir nuevas ideas."],
+      eyebrow: "Tu espacio de aprendizaje", title: "Iniciar sesión", sub: "Qué bueno verte de nuevo. Continúa aprendiendo."
+    },
+    register: {
+      side: ["Empieza hoy.<br>Aprende a tu ritmo.", "Crea tu cuenta gratis para guardar cursos, seguir tu progreso y obtener certificados.", "Aprende o enseña.", "Con la misma cuenta puedes estudiar y, cuando quieras, publicar tus propios cursos."],
+      eyebrow: "Únete a Bayora", title: "Crear cuenta", sub: "Solo toma un minuto. Es gratis."
+    },
+    recover: {
+      side: null,
+      eyebrow: "Tu espacio de aprendizaje", title: "Recuperar contraseña", sub: "Escribe tu correo y te ayudamos a volver a entrar."
+    }
+  };
+
+  const modal = $("#auth");
+  let lastFocus = null, mode = "login";
+
+  function setMode(m) {
+    mode = m;
+    const t = T[m], side = t.side || T.login.side;
+    $("#side-title").innerHTML = side[0];
+    $("#side-text").textContent = side[1];
+    $("#promo-title").textContent = side[2];
+    $("#promo-text").textContent = side[3];
+    $("#auth-eyebrow").textContent = t.eyebrow;
+    $("#auth-title").textContent = t.title;
+    $("#auth-sub").textContent = t.sub;
+    ["login", "register", "recover"].forEach(f => { $("#form-" + f).hidden = f !== m; });
+    modal.querySelectorAll(".msg").forEach(x => { x.hidden = true; x.textContent = ""; });
+    modal.querySelectorAll("input[aria-invalid]").forEach(i => i.removeAttribute("aria-invalid"));
+  }
+
+  function openAuth(m) {
+    lastFocus = document.activeElement;
+    setMode(m);
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+    setTimeout(() => $("#form-" + m + " input").focus(), 30);
+  }
+  function closeAuth() {
+    modal.hidden = true;
+    document.body.style.overflow = "";
+    if (location.hash === "#login" || location.hash === "#registro") history.replaceState(null, "", location.pathname + location.search);
+    if (lastFocus) lastFocus.focus();
+  }
+
+  function showMsg(form, tipo, texto) {
+    const m = $(".msg." + tipo, form);
+    form.querySelectorAll(".msg").forEach(x => x.hidden = true);
+    m.textContent = texto; m.hidden = false;
+  }
+  const emailOk = e => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
+  const mark = (input, bad) => bad ? input.setAttribute("aria-invalid", "true") : input.removeAttribute("aria-invalid");
+
+  /* ----- Abrir / cerrar ----- */
+  document.addEventListener("click", e => {
+    const a = e.target.closest("[data-auth]");
+    if (a) { e.preventDefault(); header.classList.remove("open"); openAuth(a.dataset.auth); return; }
+    const g = e.target.closest("[data-go]");
+    if (g) { setMode(g.dataset.go); $("#form-" + g.dataset.go + " input").focus(); return; }
+    // "Ver curso" pide iniciar sesión si todavía no la hay
+    const v = e.target.closest(".view");
+    if (v && !getSession()) { e.preventDefault(); openAuth("login"); }
+  });
+  $("#auth-close").addEventListener("click", closeAuth);
+  modal.addEventListener("mousedown", e => { if (e.target === modal) closeAuth(); });
+  document.addEventListener("keydown", e => {
+    if (modal.hidden) return;
+    if (e.key === "Escape") closeAuth();
+    if (e.key === "Tab") { // mantener el foco dentro de la ventana
+      const f = [...modal.querySelectorAll("button,input,a[href]")].filter(x => !x.closest("[hidden]") && !x.disabled);
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+  modal.querySelectorAll("[data-eye]").forEach(b => b.addEventListener("click", () => {
+    const i = b.previousElementSibling, ver = i.type === "password";
+    i.type = ver ? "text" : "password"; b.textContent = ver ? "Ocultar" : "Mostrar";
+  }));
+  modal.querySelectorAll("[data-google]").forEach(b => b.addEventListener("click", () => {
+    const f = b.closest("form");
+    showMsg(f, "err", "El acceso con Google se activará cuando conectemos el servidor real (Supabase). Por ahora usa tu correo.");
+  }));
+
+  /* ----- Iniciar sesión ----- */
+  $("#form-login").addEventListener("submit", async e => {
+    e.preventDefault();
+    const f = e.target, email = f.email.value.trim().toLowerCase(), pass = f.password.value;
+    mark(f.email, !emailOk(email)); mark(f.password, !pass);
+    if (!emailOk(email) || !pass) return showMsg(f, "err", "Escribe tu correo y tu contraseña.");
+    const btn = $("button[type=submit]", f); btn.disabled = true;
+    const user = read(USERS, []).find(u => u.email === email);
+    const ok = user && user.hash === await hash(pass);
+    btn.disabled = false;
+    if (!ok) { mark(f.email, true); mark(f.password, true); return showMsg(f, "err", "Correo o contraseña incorrectos. Revisa los datos o crea una cuenta."); }
+    write(SESSION, { nombre: user.nombre, email: user.email, rol: user.rol || "user" });
+    location.href = user.rol === "admin" ? "admin.html" : "inicio.html";
+  });
+
+  /* ----- Crear cuenta ----- */
+  $("#form-register").addEventListener("submit", async e => {
+    e.preventDefault();
+    const f = e.target, nombre = f.nombre.value.trim(), email = f.email.value.trim().toLowerCase(), pass = f.password.value;
+    mark(f.nombre, nombre.length < 2); mark(f.email, !emailOk(email)); mark(f.password, pass.length < 8);
+    if (nombre.length < 2) return showMsg(f, "err", "Escribe tu nombre completo.");
+    if (!emailOk(email)) return showMsg(f, "err", "Escribe un correo válido, por ejemplo tu@email.com.");
+    if (pass.length < 8) return showMsg(f, "err", "La contraseña debe tener al menos 8 caracteres.");
+    if (!f.terms.checked) return showMsg(f, "err", "Debes aceptar los términos para crear tu cuenta.");
+    const users = read(USERS, []);
+    if (users.some(u => u.email === email)) { mark(f.email, true); return showMsg(f, "err", "Ya existe una cuenta con ese correo. Prueba iniciar sesión."); }
+    const btn = $("button[type=submit]", f); btn.disabled = true;
+    users.push({ nombre, email, hash: await hash(pass), rol: "user", instructor: false, solicitud: f.quiero.value === "ensenar" ? "pendiente" : null, creado: new Date().toISOString() });
+    btn.disabled = false;
+    if (!write(USERS, users) || !write(SESSION, { nombre, email, rol: "user" })) return showMsg(f, "err", "No pudimos guardar la cuenta en este navegador. Revisa que no esté en modo privado.");
+    location.href = "inicio.html";
+  });
+
+  /* ----- Recuperar contraseña (demostración) ----- */
+  $("#form-recover").addEventListener("submit", e => {
+    e.preventDefault();
+    const f = e.target, email = f.email.value.trim().toLowerCase();
+    mark(f.email, !emailOk(email));
+    if (!emailOk(email)) return showMsg(f, "err", "Escribe un correo válido.");
+    showMsg(f, "ok", "Modo demostración: todavía no se envían correos. Cuando conectemos el servidor, recibirás aquí el enlace para crear una contraseña nueva.");
+  });
+
+  /* ----- Cabecera según haya sesión o no ----- */
+  const s = getSession();
+  if (s) {
+    const box = $("#hactions");
+    box.innerHTML = "";
+    const hola = document.createElement("span"); hola.className = "hello"; hola.textContent = "Hola, " + s.nombre.split(" ")[0];
+    const ir = document.createElement("a"); ir.className = "btn btn-lime"; ir.href = s.rol === "admin" ? "admin.html" : "inicio.html"; ir.textContent = s.rol === "admin" ? "Administración" : "Mi espacio";
+    const out = document.createElement("button"); out.className = "login"; out.type = "button"; out.textContent = "Cerrar sesión";
+    out.addEventListener("click", () => { localStorage.removeItem(SESSION); location.reload(); });
+    box.append(hola, ir, out);
+  }
+
+  /* ----- Abrir desde la dirección (inicio.html te manda a #login) ----- */
+  if (!s && location.hash === "#login") openAuth("login");
+  if (!s && location.hash === "#registro") openAuth("register");
+})();
+</script>
+
+<script>
+/* ===== Efectos extra de la portada (progreso, partículas, parallax, inclinación 3D, ondas, transición) ===== */
+(() => {
+  if (matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+  const $ = (s, r = document) => r.querySelector(s);
+  const header = $("#header"), hero = $(".hero"), photo = $(".hero-photo");
+
+  /* barra de progreso, cabecera de vidrio, parallax y botón "volver arriba" */
+  const bar = document.createElement("div"); bar.id = "bz-prog"; document.body.appendChild(bar);
+  const top = document.createElement("button"); top.id = "bz-top"; top.type = "button"; top.setAttribute("aria-label", "Volver arriba");
+  top.innerHTML = '<svg class="i" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>';
+  top.onclick = () => scrollTo({ top: 0, behavior: "smooth" }); document.body.appendChild(top);
+  let tick = false;
+  const onScroll = () => {
+    tick = false;
+    const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = "scaleX(" + (max > 0 ? Math.min(y / max, 1) : 0) + ")";
+    header.classList.toggle("sc", y > 10);
+    top.classList.toggle("on", y > 600);
+    if (y < 700) hero.style.setProperty("--py", (y * 0.16).toFixed(1) + "px");
+  };
+  addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
+
+  /* partículas luminosas que suben en la portada */
+  const wrap = hero.querySelector(".wrap");
+  for (let i = 0; i < 16; i++) {
+    const o = document.createElement("i"), z = 10 + Math.random() * 30;
+    o.className = "orb";
+    o.style.cssText = "left:" + (Math.random() * 100).toFixed(1) + "%;width:" + z.toFixed(0) + "px;height:" + z.toFixed(0) +
+      "px;--d:" + (9 + Math.random() * 9).toFixed(1) + "s;--dl:" + (-Math.random() * 14).toFixed(1) + "s;--dx:" + ((Math.random() - .5) * 120).toFixed(0) + "px";
+    hero.insertBefore(o, wrap);
+  }
+
+  /* la portada reacciona al mouse: foto con profundidad y foco de luz */
+  if (matchMedia("(hover:hover)").matches) {
+    hero.addEventListener("pointermove", e => {
+      const r = hero.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      hero.style.setProperty("--sx", x + "px"); hero.style.setProperty("--sy", y + "px");
+      hero.style.setProperty("--px", ((.5 - x / r.width) * 22).toFixed(1) + "px");
+    });
+    hero.addEventListener("pointerleave", () => hero.style.setProperty("--px", "0px"));
+
+    /* tarjetas de curso: inclinación 3D y brillo que sigue al mouse */
+    const cont = $("#courses");
+    cont.addEventListener("pointermove", e => {
+      if (e.pointerType !== "mouse") return;
+      const c = e.target.closest(".course"); if (!c) return;
+      const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      c.style.transitionDelay = "0ms"; c.classList.add("tl");
+      c.style.setProperty("--ry", ((x / r.width - .5) * 8).toFixed(2) + "deg");
+      c.style.setProperty("--rx", ((.5 - y / r.height) * 6).toFixed(2) + "deg");
+      c.style.setProperty("--mx", x + "px"); c.style.setProperty("--my", y + "px");
+    });
+    cont.addEventListener("pointerout", e => {
+      const c = e.target.closest(".course");
+      if (c && !c.contains(e.relatedTarget)) { c.classList.remove("tl"); c.style.setProperty("--rx", "0deg"); c.style.setProperty("--ry", "0deg"); }
+    });
+  }
+
+  /* aparición suave de otros bloques */
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add("in"); io.unobserve(e.target);
+    setTimeout(() => { e.target.style.transitionDelay = ""; }, 1000);
+  }), { threshold: .15 });
+  document.querySelectorAll(".bigsearch,.stats .wrap > div:first-child,.fgrid > div").forEach((el, i) => {
+    el.classList.add("rv"); el.style.transitionDelay = (i % 4) * 90 + "ms"; io.observe(el);
+  });
+
+  /* onda al pulsar botones */
+  document.addEventListener("pointerdown", e => {
+    const b = e.target.closest(".btn,.go"); if (!b || b.disabled) return;
+    const r = b.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2, s = document.createElement("span");
+    s.className = "bz-rip";
+    s.style.cssText = "width:" + d + "px;height:" + d + "px;left:" + (e.clientX - r.left - d / 2) + "px;top:" + (e.clientY - r.top - d / 2) + "px";
+    b.appendChild(s); setTimeout(() => s.remove(), 650);
+  });
+
+  /* salida suave al ir a otra página */
+  document.addEventListener("click", e => {
+    if (e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest("a[href]");
+    if (!a || a.target || a.hasAttribute("download")) return;
+    if (a.protocol !== location.protocol || a.host !== location.host || a.pathname === location.pathname) return;
+    e.preventDefault(); document.body.classList.add("bz-out");
+    setTimeout(() => { location.href = a.href; }, 170);
+  });
+  addEventListener("pageshow", () => document.body.classList.remove("bz-out"));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Crear curso · Bayora Academy</title>
+<script src="bayora.js"></script>
+<style>
+:root{--r:12px;--ac:#0a6b5b;--bg2:#fff}
+body{background:#eef3f5}
+input,select,textarea{padding:10px 12px;border:1px solid #9fb0b4;border-radius:8px;background:#fff;color:var(--ink);width:100%}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,[contenteditable]:focus-visible{outline:2px solid var(--green);outline-offset:1px}
+.bar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:64px;z-index:8}.bar>div{max-width:1280px;margin:auto;padding:12px 24px;display:flex;align-items:center;gap:12px}.bar h1{font-size:1.15rem;margin-right:auto}
+.b{padding:10px 18px;border-radius:999px;font-weight:700;background:var(--green);color:#03231c;transition:filter .15s}.b:hover{filter:brightness(1.07)}.b.g{background:#fff;border:1px solid #9fb0b4;color:var(--ink)}.b.s{padding:6px 12px;font-size:.8rem}.b.d{background:none;color:#a33426;border:0}
+.app{max-width:1280px;margin:auto;padding:24px;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:28px;align-items:start}
+.pan{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-bottom:18px}.pan h2{font-size:1.05rem;margin-bottom:14px}
+label{display:block;font-size:.8rem;font-weight:600;margin-bottom:12px}label>input,label>select,label>textarea{margin-top:5px;font-weight:400}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.seg{display:flex;gap:8px;margin:5px 0 12px}.seg label{flex:1;margin:0;border:1px solid #9fb0b4;border-radius:8px;padding:10px;cursor:pointer;display:flex;gap:8px;align-items:center;font-weight:600}.seg input{width:auto;margin:0}.seg label:has(:checked){border-color:var(--ac);background:#e7f7f2}
+.stat{display:flex;gap:26px;flex-wrap:wrap;align-items:center}.stat div b{font-size:1.4rem;display:block}.stat small{color:var(--soft)}.pb{flex:1;min-width:160px}.pb i{display:block;height:8px;border-radius:9px;background:var(--green)}.pb span{display:block;background:var(--line);border-radius:9px;margin-top:6px}
+.lv{margin-bottom:22px}.lvh{display:flex;align-items:center;gap:12px;margin-bottom:10px}.lvh b{font-size:1.05rem;white-space:nowrap}.lvh input{border:0;border-bottom:1px dashed #9fb0b4;border-radius:0;padding:6px 2px;background:none}
+.ses{background:#fff;border:1px solid var(--line);border-left:4px solid #c3d0d3;border-radius:var(--r);padding:14px 16px;margin-bottom:10px;cursor:grab}.ses.ok{border-left-color:var(--green)}.ses.dr{opacity:.4}.ses.ov{outline:2px dashed var(--green)}
+.sh{display:flex;gap:10px;align-items:center}.sh small{color:var(--soft);font-weight:700}.sh h3{font-size:1rem;flex:1}.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;font-size:.78rem}.chips span{padding:2px 9px;border-radius:99px;background:#eef3f5;color:var(--soft)}.chips .y{background:#e1f6ef;color:#0a5c4a}
+.st{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:99px}.st.p{background:#e1f6ef;color:#0a5c4a}.st.b{background:#fff4d6;color:#8a6200}.warn{color:#8a6200;font-size:.82rem;margin:4px 0}
+.act{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.act select{width:auto;padding:5px 8px;font-size:.78rem}
+.add{display:flex;gap:10px;margin-top:6px}.add .b{flex:1;border:2px dashed var(--ac);background:#fff;color:var(--ac)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:16px 0}.tabs button{background:none;padding:10px 16px;font-weight:600;color:var(--soft);border-bottom:3px solid transparent}.tabs .on{color:var(--ac);border-color:var(--green)}
+.tb{display:flex;gap:4px;flex-wrap:wrap;padding:8px;border:1px solid #9fb0b4;border-bottom:0;border-radius:8px 8px 0 0;background:#f6f9fa}.tb button{min-width:34px;height:32px;border-radius:6px;background:#fff;border:1px solid var(--line)}
+.ed{min-height:240px;border:1px solid #9fb0b4;border-radius:0 0 8px 8px;padding:16px;background:#fff;line-height:1.6}.ed h2{margin:12px 0 6px}.ed blockquote{border-left:4px solid var(--green);padding-left:12px;color:var(--soft)}.ed ul,.ed ol{margin-left:22px}
+.dz{border:2px dashed #9fb0b4;border-radius:var(--r);padding:26px;text-align:center;color:var(--soft);background:#f8fbfc}.dz.ov{border-color:var(--green);background:#e7f7f2}.pv{height:220px;border-radius:var(--r);background:#dde6e9 center/cover;margin-bottom:10px}
+.sw{display:flex;align-items:center;gap:12px;font-weight:700}.sw button{width:52px;height:28px;border-radius:99px;background:#b7c4c7;position:relative}.sw button::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .15s}.sw.on button{background:var(--green)}.sw.on button::after{left:27px}
+.q{border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-top:12px;background:#fafcfc}.op{display:flex;gap:8px;align-items:center;margin-top:8px}.op input[type=radio]{width:auto}.pts{width:80px!important}
+.note{background:#e7f7f2;border-radius:8px;padding:12px;font-size:.88rem;margin-bottom:14px}
+.side{position:sticky;top:136px}.cov{aspect-ratio:3/4;border-radius:var(--r);background:center/cover;display:flex;align-items:flex-end;padding:18px;color:#fff;font-weight:800;font-size:1.3rem;line-height:1.2;position:relative;overflow:hidden}.cov span{text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.price{font-size:1.8rem;font-weight:800;margin-top:14px}.cat{display:inline-block;background:#e7f7f2;color:#0a5c4a;padding:4px 12px;border-radius:99px;font-weight:700;font-size:.85rem;margin:8px 0}
+.kv{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--line);font-size:.88rem}.kv span{color:var(--soft)}
+.ck{font-size:.85rem;padding:3px 0}.ck.n{color:#8a6200}
+#msg{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--night);color:#fff;padding:12px 20px;border-radius:10px;z-index:50;max-width:92vw}#msg.e{background:#8f2a1f}
+@media(max-width:960px){.app{grid-template-columns:1fr}.side{position:static}}
+</style></head><body>
+<div class="bar"><div><h1>Crear curso</h1><button class="b g" data-a="draft">Guardar borrador</button><button class="b" data-a="pub">Publicar curso</button></div></div>
+<div class="app"><main id="L"></main><aside class="side" id="R"></aside></div><div id="msg" hidden></div>
+<script>
+if(typeof BY==='undefined'){document.body.innerHTML='<div style="font:16px system-ui;padding:40px;max-width:560px;margin:auto"><h2>No se encontró bayora.js</h2><p>Este archivo debe estar en la misma carpeta que constructor.html y llamarse exactamente <b>bayora.js</b>.</p></div>';throw new Error('Falta bayora.js')}
+const {s,u}=BY.hdr('n'),$=q=>document.querySelector(q),E=BY.esc,EID=new URLSearchParams(location.search).get('edit'),DK='bayora_builder_'+s.email+(EID?'_'+EID:'');
+if(!(u.rol==='admin'||u.instructor)){location.replace('instructor.html');throw new Error('sin permiso')}
+if(EID){const c0=BY.get('courses').find(x=>x.id===EID);if(c0&&u.rol!=='admin'&&c0.email!==s.email){location.replace('instructor.html');throw new Error('sin permiso')}}
+const CATS=["Tecnología","Ciencia","Arte","Diseño","Negocios","Educación","Salud","Ingeniería","Investigación","Programación","Idiomas","Otros"];
+const mkS=()=>({id:BY.id(),titulo:'',desc:'',html:'',txt:'',img:'',vk:'',vu:'',ev:false,min:13,pr:[],estado:'borrador'});
+const mkL=()=>({id:BY.id(),nombre:'',ses:[mkS()]});
+if(new URLSearchParams(location.search).get('new')){try{localStorage.removeItem(DK)}catch{}}
+let st;try{st=JSON.parse(localStorage.getItem(DK))}catch{}
+if(st&&st.cid&&!EID)st=null;
+function fromCourse(c){if(!c)return null;const D=t=>{const a=document.createElement('textarea');a.innerHTML=t||'';return a.value};
+const so=x=>({...mkS(),titulo:x.titulo||'',desc:x.desc||'',html:x.html||'',txt:x.txt||'',img:x.img||'',vk:x.video||'',vu:x.enlace||'',ev:!!x.eval,min:x.eval?x.eval.min:13,pr:x.eval?x.eval.preguntas:[]});
+const niv=c.niveles?c.niveles.map(n=>({id:BY.id(),nombre:n.nombre||'',ses:n.sesiones.map(so)})):[{id:BY.id(),nombre:'',ses:(c.lecciones||[]).map(l=>{const tx=D(l.texto);return{...mkS(),titulo:D(l.t),txt:tx,html:E(tx).replace(/\n/g,'<br>'),vk:l.tipo==='video'?(l.media||''):'',img:l.tipo!=='video'?(l.media||''):''}})}];
+if(!niv.length||niv.some(n=>!n.ses.length&&!c.niveles))niv.push(mkL());
+const ic=CATS.includes(c.categoria);return{cid:c.id,titulo:D(c.titulo),desc:D(c.descripcion),cat:ic?c.categoria:'__c',custom:ic?'':c.categoria,acc:c.precio>0?'paid':'free',precio:c.precio||'',mon:c.moneda||'PEN',portada:c.portada||'',horas:c.horas||'',niv}}
+st=st||fromCourse(BY.get('courses').find(x=>x.id===EID))||{titulo:'',desc:'',cat:'Diseño',custom:'',acc:'free',precio:'',mon:'PEN',portada:'',horas:'',niv:[mkL()]};
+if(st.horas===undefined)st.horas='';let view=null,tab=0;
+let done=false;const save=()=>{if(done)return;try{localStorage.setItem(DK,JSON.stringify(st))}catch{}};
+const all=()=>st.niv.flatMap(n=>n.ses),cs=()=>all().find(x=>x.id===view);
+const cat=()=>st.cat==='__c'?st.custom.trim():st.cat;
+const has=x=>x.txt.trim().length>0||x.img||x.vk||x.vu;
+const tot=x=>x.pr.reduce((a,p)=>a+(+p.pts||0),0);
+const evOk=x=>!x.ev||(x.pr.length&&x.pr.every(p=>p.q.trim()&&p.ops.length>=2&&p.ops.every(o=>o.t.trim())&&p.ops.some(o=>o.ok))&&tot(x)>0);
+const issues=x=>{const r=[];if(!x.titulo.trim())r.push('Falta agregar el título.');if(!has(x))r.push('Falta agregar contenido.');if(!evOk(x))r.push('Falta configurar la evaluación.');return r};
+const checks=()=>{const A=all(),pe=st.acc==='free'||+st.precio>0;return[
+[!!st.titulo.trim(),'Título'],[!!st.portada,'Portada'],[!!cat(),'Categoría'],[+st.horas>0&&+st.horas<=1000,'Duración del curso (horas)'],[pe,st.acc==='free'?'Modalidad gratuita':'Precio del curso'],
+[st.niv.length>0,'Al menos un nivel'],[A.length>0,'Al menos una sesión'],[A.length>0&&A.every(x=>x.titulo.trim()&&has(x)),'Título y contenido en todas las sesiones'],[A.every(evOk),'Evaluaciones bien configuradas']]};
+const hrs=()=>{const m=all().reduce((a,x)=>a+(x.vk||x.vu?20:0)+(x.txt.trim()?10:0)+(x.ev?10:0),0);return m>=60?(m/60).toFixed(1).replace('.0','')+' h':m+' min'};
+const toast=(t,e)=>{const m=$('#msg');m.textContent=t;m.className=e?'e':'';m.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>m.hidden=true,e?6000:2200)};
+const pad=n=>String(n).padStart(2,'0');
+
+function renderR(){const c=checks(),A=all(),ph=c.filter(x=>!x[0]);
+$('#R').innerHTML=`<div class="pan"><div class="cov" data-m="${st.portada}" style="background-image:linear-gradient(160deg,${(BY.PAL[cat()]||BY.PAL.Otras).join(',')})"><span>${E(st.titulo)||'Título del curso'}</span></div>
+<div class="act" style="margin-top:10px"><label class="b g s" style="margin:0;cursor:pointer">${st.portada?'Cambiar portada':'Subir portada'}<input type="file" accept="image/*" id="cv" hidden></label>${st.portada?'<button class="b d s" data-a="rmcv">Quitar</button>':''}</div>
+<div class="price">${st.acc==='free'?'GRATUITO':(st.mon==='PEN'?'S/ ':st.mon+' ')+(+st.precio||0).toFixed(2)}</div><small style="color:var(--soft)">${st.acc==='free'?'Curso gratuito':'Curso de pago'}</small><br><span class="cat">🏷 ${E(cat())||'Sin categoría'}</span>
+<div class="kv"><span>Niveles</span><b>${st.niv.length}</b></div><div class="kv"><span>Sesiones</span><b>${A.length}</b></div><div class="kv"><span>Duración del curso</span><b>${+st.horas>0?E(st.horas)+' h':'Sin definir'}</b></div><div class="kv"><span>Contenido cargado</span><b>≈ ${hrs()}</b></div><div class="kv"><span>Modalidad</span><b>Online</b></div><div class="kv"><span>Evaluaciones</span><b>${A.some(x=>x.ev)?'Sí':'No'}</b></div><div class="kv"><span>Certificado</span><b>${+st.horas>0?'Tras '+E(st.horas)+' h':'Sí'}</b></div>
+<p style="margin-top:12px;font-size:.88rem;color:var(--soft)">${E(st.desc)||'La descripción del curso aparecerá aquí.'}</p></div>
+<div class="pan"><h2>Antes de publicar</h2>${c.map(x=>`<div class="ck ${x[0]?'':'n'}">${x[0]?'✓':'○'} ${x[1]}</div>`).join('')}</div>`;BY.hydrate($('#R'));
+const pc=Math.round(100*(c.length-ph.length)/c.length),b=$('#pg');if(b){b.style.width=pc+'%';$('#pgt').textContent=pc+'%'}}
+
+function renderL(){const A=all();let n=0;
+if(view){const x=cs();if(!x){view=null;return renderL()}const k=A.indexOf(x)+1;
+$('#L').innerHTML=`<button class="b g s" data-a="back">← Volver al constructor</button><div class="pan" style="margin-top:14px"><h2 style="font-size:1.3rem">Sesión ${pad(k)}</h2><div class="tabs">${['Contenido','Multimedia','Evaluación','Configuración'].map((t,i)=>`<button data-a="tab" data-i="${i}" class="${i===tab?'on':''}">${t}</button>`).join('')}</div>${[tC,tM,tE,tG][tab](x)}</div>`;
+if(tab===0){const ed=$('#ed');ed.innerHTML=x.html}
+if(tab===1&&x.vk)BY.url(x.vk).then(v=>{const e=$('#vp');if(v&&e)e.src=v});BY.hydrate($('#L'));return}
+const ph=checks();
+$('#L').innerHTML=`<div class="pan"><h2>Configuración del curso</h2><label>Título del curso<input data-p="titulo" value="${E(st.titulo)}" placeholder="Introducción al Diseño Digital" maxlength="90"></label>
+<label>Descripción<textarea data-p="desc" rows="3" maxlength="400" placeholder="¿De qué trata el curso?">${E(st.desc)}</textarea></label>
+<label>Duración total del curso (horas) *<input type="number" min="0.5" max="1000" step="0.5" data-p="horas" value="${E(st.horas)}" placeholder="Ej.: 12" required></label><p class="note">Obligatorio. El certificado solo se ofrece cuando el alumno completa todas las sesiones <b>y</b> cumple estas horas de estudio dentro de la plataforma.</p>
+<div class="g2"><label>Categoría<select data-p="cat">${CATS.map(c=>`<option ${c===st.cat?'selected':''}>${c}</option>`).join('')}<option value="__c" ${st.cat==='__c'?'selected':''}>Personalizada…</option></select></label>${st.cat==='__c'?`<label>Nombre de la categoría<input data-p="custom" value="${E(st.custom)}" maxlength="30"></label>`:'<span></span>'}</div>
+<b style="font-size:.8rem">Modalidad de acceso</b><div class="seg"><label><input type="radio" name="acc" data-p="acc" value="free" ${st.acc==='free'?'checked':''}>Gratuito</label><label><input type="radio" name="acc" data-p="acc" value="paid" ${st.acc==='paid'?'checked':''}>De pago</label></div>
+${st.acc==='paid'?`<div class="g2"><label>Precio del curso<input type="number" min="0" step="0.01" data-p="precio" value="${st.precio}" placeholder="49.90"></label><label>Moneda<select data-p="mon">${['PEN','USD','EUR'].map(m=>`<option ${m===st.mon?'selected':''}>${m}</option>`).join('')}</select></label></div>`:''}</div>
+<div class="pan"><div class="stat"><div><b>${st.niv.length}</b><small>niveles</small></div><div><b>${A.length}</b><small>sesiones</small></div><div class="pb"><small>Progreso de configuración · <b id="pgt"></b></small><span><i id="pg" style="width:0"></i></span></div></div></div>
+${st.niv.map((l,li)=>`<section class="lv" data-lv="${l.id}"><div class="lvh"><b>Nivel ${pad(li+1)}</b><input data-ln="${l.id}" value="${E(l.nombre)}" placeholder="Nombre del nivel (opcional)"><button class="b d s" data-a="dl" data-l="${l.id}">Eliminar nivel</button></div>
+${l.ses.map(x=>{n++;const is=issues(x);return`<div class="ses ${is.length?'':'ok'}" draggable="true" data-s="${x.id}"><div class="sh"><small>SESIÓN ${pad(n)}</small><h3>${E(x.titulo)||'<i style="color:var(--soft)">Sin título</i>'}</h3><span class="st ${x.estado==='publicada'?'p':'b'}">${x.estado==='publicada'?'🟢 Publicada':'🟡 Borrador'}</span></div>
+<div class="chips"><span class="${x.vk||x.vu?'y':''}">${x.vk||x.vu?'✓':'○'} Video</span><span class="${x.txt.trim()?'y':''}">${x.txt.trim()?'✓':'○'} Material</span><span class="${x.img?'y':''}">${x.img?'✓':'○'} Imagen</span><span class="${x.ev?'y':''}">${x.ev?'✓ Evaluación · mín. '+x.min+'/20':'○ Sin evaluación'}</span></div>
+${is.length?`<div class="warn">⚠ Sesión incompleta. ${is.join(' ')}</div>`:''}
+<div class="act"><button class="b s" data-a="es" data-s="${x.id}">Editar</button><button class="b g s" data-a="ds" data-s="${x.id}">Duplicar</button><button class="b d s" data-a="xs" data-s="${x.id}">Eliminar</button><select data-mv="${x.id}" aria-label="Mover a nivel"><option value="">Mover a…</option>${st.niv.map((m,mi)=>`<option value="${m.id}">Nivel ${pad(mi+1)}</option>`).join('')}</select></div></div>`}).join('')||'<p class="warn">Este nivel aún no tiene sesiones.</p>'}
+<div class="add"><button class="b" data-a="as" data-l="${l.id}">+ AGREGAR SESIÓN</button></div></section>`).join('')}
+<div class="add"><button class="b" data-a="al">+ AGREGAR NIVEL</button></div>`;renderR()}
+
+const tC=x=>`<label>Título de la sesión<input data-sp="titulo" value="${E(x.titulo)}" placeholder="Fundamentos del color"></label><label>Descripción de la sesión<textarea data-sp="desc" rows="2">${E(x.desc)}</textarea></label><b style="font-size:.8rem">Contenido escrito</b>
+<div class="tb" style="margin-top:5px">${[['bold','<b>N</b>'],['italic','<i>K</i>'],['underline','<u>S</u>'],['H','H2'],['insertUnorderedList','• Lista'],['insertOrderedList','1. Lista'],['Q','❝'],['L','🔗'],['insertHorizontalRule','―'],['justifyLeft','⇤'],['justifyCenter','↔'],['justifyRight','⇥']].map(t=>`<button type="button" data-fm="${t[0]}" title="${t[0]}">${t[1]}</button>`).join('')}</div><div class="ed" id="ed" contenteditable="true"></div>`;
+const tM=x=>`<h2>Material visual</h2>${x.img?`<div class="pv" data-m="${x.img}"></div><div class="act"><label class="b g s" style="margin:0;cursor:pointer">Cambiar<input type="file" accept="image/*" data-up="img" hidden></label><button class="b d s" data-a="rmimg">Eliminar</button></div>`:`<div class="dz" data-dz="img">Arrastra una imagen aquí<br><br><label class="b s" style="cursor:pointer;margin:0">+ SUBIR IMAGEN<input type="file" accept="image/*" data-up="img" hidden></label></div>`}
+<h2 style="margin-top:26px">Video de la sesión</h2>${x.vk?`<video id="vp" controls style="width:100%;border-radius:12px;margin-bottom:10px"></video>`:x.vu?vid(x.vu):''}
+${x.vk||x.vu?`<div class="act"><label class="b g s" style="margin:0;cursor:pointer">Cambiar video<input type="file" accept="video/*" data-up="vk" hidden></label><button class="b d s" data-a="rmvid">Eliminar video</button></div>`:`<div class="dz" data-dz="vk">Arrastra un video aquí<br><br><label class="b s" style="cursor:pointer;margin:0">+ AGREGAR VIDEO<input type="file" accept="video/*" data-up="vk" hidden></label></div>`}
+<label style="margin-top:14px">O pega un enlace de video (YouTube o Vimeo)<input data-sp="vu" value="${E(x.vu)}" placeholder="https://…"></label><small style="color:var(--soft)">Los archivos se guardan en este navegador (modo demostración).</small>`;
+function vid(u){let m=u.match(/(?:youtu\.be\/|v=)([\w-]{11})/),v=u.match(/vimeo\.com\/(\d+)/);const src=m?'https://www.youtube.com/embed/'+m[1]:v?'https://player.vimeo.com/video/'+v[1]:'';return src?`<iframe src="${src}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:12px;margin-bottom:10px" allowfullscreen></iframe>`:'<p class="warn">Enlace no reconocido como video.</p>'}
+const tE=x=>`<div class="sw ${x.ev?'on':''}"><span>¿El estudiante debe responder preguntas para continuar?</span><button data-a="ev" aria-label="Activar evaluación"></button><span>${x.ev?'SÍ':'NO'}</span></div>
+${x.ev?`<div style="margin-top:18px"><h2>Evaluación</h2><p class="note">El estudiante deberá aprobar esta evaluación para desbloquear la siguiente sesión.</p><label style="max-width:240px">Nota mínima para aprobar (0–20)<input type="number" min="0" max="20" data-sp="min" value="${x.min}"></label><p><b>Nota mínima: ${x.min}/20</b> · Puntaje total: ${tot(x)} pts → se convierte a nota sobre 20.</p>
+${x.pr.map((p,i)=>`<div class="q"><div class="act" style="justify-content:space-between"><b>Pregunta ${pad(i+1)}</b><span class="act">Valor <input class="pts" type="number" min="0" step="0.5" data-qp="pts" data-qi="${i}" value="${p.pts}"> pts <button class="b d s" data-a="xq" data-qi="${i}">Eliminar</button></span></div>
+<input data-qp="q" data-qi="${i}" value="${E(p.q)}" placeholder="Escribe la pregunta" style="margin-top:8px">${p.ops.map((o,j)=>`<div class="op"><input type="radio" name="r${i}" data-ok="${j}" data-qi="${i}" ${o.ok?'checked':''} title="Respuesta correcta"><input data-op="${j}" data-qi="${i}" value="${E(o.t)}" placeholder="Opción ${j+1}"><button class="b d s" data-a="xo" data-qi="${i}" data-oi="${j}">✕</button></div>`).join('')}<button class="b g s" style="margin-top:10px" data-a="ao" data-qi="${i}">+ Agregar opción</button></div>`).join('')}
+<button class="b" style="margin-top:14px" data-a="aq">+ AGREGAR PREGUNTA</button></div>`:'<p style="margin-top:14px;color:var(--soft)">Sin evaluación, el estudiante pasa a la siguiente sesión al terminar.</p>'}`;
+const tG=x=>`<label style="max-width:260px">Estado de la sesión<select data-sp="estado"><option value="borrador" ${x.estado==='borrador'?'selected':''}>🟡 Borrador</option><option value="publicada" ${x.estado==='publicada'?'selected':''}>🟢 Publicada</option></select></label><p class="note">Las sesiones posteriores aparecen bloqueadas 🔒 para el estudiante hasta cumplir lo configurado.</p>${issues(x).map(i=>`<p class="warn">⚠ ${i}</p>`).join('')||'<p>✓ Configurada</p>'}`;
+
+/* eventos */
+const A_={
+back(){view=null;renderL()},tab(e){tab=+e.dataset.i;renderL()},es(e){view=e.dataset.s;tab=0;renderL();scrollTo(0,0)},
+al(){st.niv.push(mkL());save();renderL()},dl(e){if(st.niv.length>1&&!confirm('¿Eliminar el nivel y sus sesiones?'))return;if(st.niv.length===1)return toast('El curso necesita al menos un nivel.',1);st.niv=st.niv.filter(l=>l.id!==e.dataset.l);save();renderL()},
+as(e){st.niv.find(l=>l.id===e.dataset.l).ses.push(mkS());save();renderL()},
+ds(e){const l=st.niv.find(l=>l.ses.some(x=>x.id===e.dataset.s)),i=l.ses.findIndex(x=>x.id===e.dataset.s),c=JSON.parse(JSON.stringify(l.ses[i]));c.id=BY.id();c.titulo+=' (copia)';c.estado='borrador';l.ses.splice(i+1,0,c);save();renderL()},
+xs(e){if(!confirm('¿Eliminar esta sesión?'))return;st.niv.forEach(l=>l.ses=l.ses.filter(x=>x.id!==e.dataset.s));save();renderL()},
+ev(){const x=cs();x.ev=!x.ev;if(x.ev&&!x.pr.length)x.pr.push(mkQ());save();renderL()},aq(){cs().pr.push(mkQ());save();renderL()},xq(e){cs().pr.splice(+e.dataset.qi,1);save();renderL()},
+ao(e){cs().pr[+e.dataset.qi].ops.push({t:'',ok:false});save();renderL()},xo(e){const o=cs().pr[+e.dataset.qi].ops;if(o.length<=2)return toast('Cada pregunta necesita al menos 2 opciones.',1);o.splice(+e.dataset.oi,1);save();renderL()},
+rmimg(){BY.delF(cs().img);cs().img='';save();renderL()},rmvid(){const x=cs();BY.delF(x.vk);x.vk='';x.vu='';save();renderL()},rmcv(){BY.delF(st.portada);st.portada='';save();renderL();renderR()},
+draft(){save();toast('Borrador guardado en este navegador.')},
+pub(){const f=checks().filter(x=>!x[0]);if(f.length)return toast('El curso todavía no puede publicarse. Falta: '+f.map(x=>x[1]).join(', ')+'.',1);
+const A=all(),admin=u.rol==='admin',id=st.cid||BY.id(),prev=BY.get('courses').find(c=>c.id===id)||{};
+const c={...prev,id,email:s.email,titulo:E(st.titulo.trim()),categoria:cat(),instructor:E(s.nombre),precio:st.acc==='free'?0:+st.precio,moneda:st.mon,rating:prev.rating||0,estudiantes:prev.estudiantes||0,estado:admin?'publicado':'pendiente',colores:BY.PAL[cat()]||BY.PAL.Otras,descripcion:E(st.desc.trim()),horas:+st.horas,portada:st.portada,
+niveles:st.niv.map(l=>({nombre:l.nombre,sesiones:l.ses.map(x=>({titulo:x.titulo,desc:x.desc,html:x.html,img:x.img,txt:x.txt,video:x.vk,enlace:x.vu,eval:x.ev?{min:x.min,total:tot(x),preguntas:x.pr}:null}))})),
+lecciones:A.map(x=>({t:E(x.titulo),tipo:x.vk||x.vu?'video':'texto',texto:E((x.desc?x.desc+'\n\n':'')+x.txt),media:x.vk||x.img||''}))};
+BY.set('courses',[...BY.get('courses').filter(k=>k.id!==id),c]);done=true;try{localStorage.removeItem(DK)}catch{}setTimeout(()=>location.href=admin?'admin.html':'instructor.html',1600);toast(admin?'Curso publicado.':'Curso enviado. El administrador lo revisará antes de publicarlo.')}};
+const mkQ=()=>({q:'',pts:2,ops:[{t:'',ok:true},{t:'',ok:false}]});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&A_[b.dataset.a])A_[b.dataset.a](b);
+const f=e.target.closest('[data-fm]');if(f){const c=f.dataset.fm;$('#ed').focus();if(c==='H')document.execCommand('formatBlock',false,'h2');else if(c==='Q')document.execCommand('formatBlock',false,'blockquote');else if(c==='L'){const l=prompt('Dirección del enlace (https://…)');if(l&&/^https?:\/\//.test(l))document.execCommand('createLink',false,l)}else document.execCommand(c);ed()}});
+document.addEventListener('mousedown',e=>{if(e.target.closest('[data-fm]'))e.preventDefault()});
+const ed=()=>{const x=cs(),e=$('#ed');if(x&&e){x.html=e.innerHTML;x.txt=e.innerText;save();}};
+document.addEventListener('input',e=>{const t=e.target,d=t.dataset,x=cs();
+if(t.id==='ed')return ed();
+if(d.p){st[d.p]=t.value;save();if(d.p==='cat'||d.p==='acc')renderL();else renderR();return}
+if(d.ln){st.niv.find(l=>l.id===d.ln).nombre=t.value;save();return}
+if(d.sp){x[d.sp]=d.sp==='min'?Math.max(0,Math.min(20,+t.value)):t.value;save();if(d.sp==='estado'||d.sp==='vu')renderL();else if(d.sp==='min')t.closest('.pan').querySelector('p b').textContent='Nota mínima: '+x.min+'/20';return}
+if(d.qp){x.pr[+d.qi][d.qp]=d.qp==='pts'?+t.value:t.value;save()}
+if(d.op!==undefined&&d.qi!==undefined){x.pr[+d.qi].ops[+d.op].t=t.value;save()}});
+document.addEventListener('change',e=>{const t=e.target,d=t.dataset;
+if(d.ok!==undefined){cs().pr[+d.qi].ops.forEach((o,j)=>o.ok=j===+d.ok);save();return}
+if(d.mv&&t.value){mv(d.mv,t.value);return}
+if(t.id==='cv'&&t.files[0])up(t.files[0],'cover');
+if(d.up&&t.files[0])up(t.files[0],d.up)});
+async function up(f,w){if(f.size>150e6)return toast('El archivo supera 150 MB.',1);if(w==='img'&&!f.type.startsWith('image/')||w==='vk'&&!f.type.startsWith('video/')||w==='cover'&&!f.type.startsWith('image/'))return toast('Tipo de archivo no válido.',1);
+try{const k=await BY.putF(f);if(w==='cover'){BY.delF(st.portada);st.portada=k;renderR()}else{const x=cs();BY.delF(x[w]);x[w]=k;if(w==='vk')x.vu='';renderL()}save()}catch{toast('No se pudo guardar el archivo en este navegador.',1)}}
+/* arrastrar y soltar */
+let drag=null;
+function mv(sid,to,before){let it;st.niv.forEach(n=>{const i=n.ses.findIndex(x=>x.id===sid);if(i>-1)it=n.ses.splice(i,1)[0]});const L=st.niv.find(n=>n.id===to),j=before?L.ses.findIndex(x=>x.id===before):-1;j>-1?L.ses.splice(j,0,it):L.ses.push(it);save();renderL()}
+document.addEventListener('dragstart',e=>{const c=e.target.closest&&e.target.closest('.ses');if(c){drag=c.dataset.s;c.classList.add('dr')}});
+document.addEventListener('dragend',()=>{drag=null;document.querySelectorAll('.dr,.ov').forEach(x=>x.classList.remove('dr','ov'))});
+document.addEventListener('dragover',e=>{const z=e.target.closest&&e.target.closest('.dz,.ses,.lv');if(!z)return;if(drag||z.classList.contains('dz')){e.preventDefault();document.querySelectorAll('.ov').forEach(x=>x.classList.remove('ov'));(z.classList.contains('lv')&&!e.target.closest('.ses')?z:z.classList.contains('lv')?null:z)?.classList.add('ov')}});
+document.addEventListener('drop',e=>{const dz=e.target.closest&&e.target.closest('.dz');if(dz&&e.dataTransfer.files[0]){e.preventDefault();return up(e.dataTransfer.files[0],dz.dataset.dz)}
+if(!drag)return;const t=e.target.closest('.ses'),l=e.target.closest('.lv');if(!l)return;e.preventDefault();mv(drag,l.dataset.lv,t&&t.dataset.s!==drag?t.dataset.s:null)});
+if(EID)document.querySelector('.bar h1').textContent='Editar curso';
+renderL();renderR();
+</script></body></html>

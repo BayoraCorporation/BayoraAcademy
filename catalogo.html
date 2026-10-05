@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Catálogo · Bayora Academy</title>
+<script src="bayora.js"></script>
+<style>main{max-width:1120px;margin:auto;padding:28px 24px 60px}h1{font-size:1.7rem;animation:up .5s both}.sub{color:var(--soft);margin:4px 0 20px}
+.bar{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap}.bar input,.bar select{height:46px;padding:0 14px;border:1px solid #8c9da1;border-radius:8px;background:#fff}.bar input{flex:1;min-width:200px}.cd{animation:up .5s both}
+.pg{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0}.pg i{display:block;height:100%;background:var(--green);transition:width .6s}.lk{color:var(--deep);font-weight:700;font-size:.85rem}.empty{color:var(--soft);padding:30px 0}[hidden]{display:none}h2{margin:26px 0 12px;font-size:1.15rem}</style></head><body>
+<main><h1 id="t"></h1><p class="sub" id="s"></p>
+<section id="v1"><div class="bar"><input id="q" type="search" placeholder="¿Qué quieres aprender?"><select id="cat"><option value="">Todas las categorías</option></select></div><div class="grid" id="g"></div></section>
+<section id="v2" hidden><div class="grid" id="mine"></div><h2>Mis certificados</h2><div class="grid" id="ce"></div></section></main>
+<script>
+const G=BY.get,{s}=BY.hdr(location.hash==="#mi"?"m":"c"),$=x=>document.querySelector(x),P=new URLSearchParams(location.search);
+const cs=()=>G('courses').filter(c=>c.estado==='publicado');
+$("#cat").insertAdjacentHTML("beforeend",Object.keys(BY.PAL).map(k=>`<option>${k}</option>`).join(""));$("#q").value=P.get("q")||"";$("#cat").value=P.get("cat")||"";
+function lista(){const q=$("#q").value.toLowerCase(),c=$("#cat").value;
+const r=cs().filter(x=>(!c||x.categoria===c)&&(!q||(x.titulo+x.instructor+x.categoria).toLowerCase().includes(q)));
+$("#g").innerHTML=r.length?r.map((x,i)=>BY.card(x).replace('class="cd"',`class="cd" style="animation-delay:${i*50}ms"`)).join(""):'<p class="empty">No encontramos cursos con ese filtro.</p>';BY.hydrate($("#g"))}
+function mis(){const m=G('enroll',{})[s.email]||{};const L=cs().filter(c=>m[c.id]);
+const pr=c=>Math.round(100*m[c.id].length/BY.lessons(c).length);
+$("#mine").innerHTML=L.length?L.map(c=>BY.card(c).replace('<div class="cf">',`<div class="pg"><i style="width:${pr(c)}%"></i></div><div class="cf"><span class="lk">${pr(c)}% completado${c.horas&&BY.spent(s.email,c.id)<BY.req(c)?' · '+BY.fmt(BY.spent(s.email,c.id))+' de '+c.horas+' h':''}</span>`).replace('<span>Nuevo</span>','').replace(/<span>★[^<]*<\/span>/,'')).join(""):'<p class="empty">Aún no te has inscrito en ningún curso. Explora el catálogo y empieza hoy.</p>';
+const D=L.filter(c=>BY.cumple(s.email,c,m[c.id]));$("#ce").innerHTML=D.length?D.map(c=>`<a class="cd" href="curso.html?id=${c.id}&cert=1"><div class="cb"><h3>${c.titulo}</h3><span class="lk">Ver certificado →</span></div></a>`).join(""):'<p class="empty">Completa todas las lecciones y las horas de estudio de un curso para obtener tu certificado.</p>'}
+function vista(){const m=location.hash==="#mi";$("#v1").hidden=m;$("#v2").hidden=!m;$("#t").textContent=m?"Mi aprendizaje":"Catálogo de cursos";$("#s").textContent=m?"Tus cursos, tu progreso y tus certificados.":"Encuentra el curso que necesitas.";m?mis():lista()}
+$("#q").oninput=$("#cat").onchange=lista;addEventListener("hashchange",()=>location.reload());vista();
+</script></body></html>

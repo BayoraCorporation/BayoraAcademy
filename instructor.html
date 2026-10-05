@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cursos · Bayora Academy</title>
+<script src="bayora.js"></script>
+<style>
+main{max-width:960px;margin:auto;padding:28px 24px 60px}h1{font-size:1.7rem}.sub{color:var(--soft);margin:4px 0 22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:20px}.card h2{font-size:1.1rem;margin-bottom:8px}
+.btn{display:inline-block;background:var(--green);color:#03231c;font-weight:700;padding:12px 22px;border-radius:999px;transition:.15s}.btn:hover{filter:brightness(1.08)}.btn.g{background:#fff;border:1px solid #9fb0b4;color:var(--ink)}.btn.s{padding:6px 14px;font-size:.8rem}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line);font-size:.9rem}.row small{display:block;color:var(--soft)}.row>div:last-child{display:flex;gap:8px;align-items:center}
+.bd{padding:3px 10px;border-radius:999px;font-size:.72rem;font-weight:700}.publicado{background:#e1f6ef;color:#0a5c4a}.pendiente{background:#fff4d6;color:#8a6200}.rechazado{background:#fdecea;color:#8f2a1f}.del{background:none;color:#8f2a1f;font-size:.8rem}
+.top2{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+</style></head><body>
+<main><div class="top2"><div><h1 id="h"></h1><p class="sub" id="sb"></p></div><a class="btn" id="nw" href="constructor.html?new=1" hidden>+ Crear curso</a></div><div id="box"></div></main>
+<script>
+const {s,u}=BY.hdr("e"),G=BY.get,$=x=>document.querySelector(x);
+const me=()=>G('users').find(x=>x.email===s.email)||{};
+function draw(){const m=me(),ok=m.instructor||m.rol==='admin',b=$("#box");$("#nw").hidden=!ok;
+if(!ok){$("#h").textContent="Ser instructor";$("#sb").textContent="Comparte lo que sabes. El administrador revisa cada solicitud.";
+const st=m.solicitud;
+b.innerHTML=st==='pendiente'?'<section class="card"><h2>Solicitud en revisión</h2><p class="sub" style="margin:0">El administrador revisará tu solicitud. Mientras tanto puedes seguir aprendiendo como alumno.</p></section>'
+:`<section class="card"><h2>${st==='rechazada'?'Tu solicitud no fue aprobada':'Conviértete en instructor'}</h2><p class="sub">${st==='rechazada'?'Puedes volver a solicitarlo cuando quieras.':'Tu cuenta de alumno sigue igual; al aprobarte se añaden las opciones para crear cursos.'}</p><button class="btn" id="rq">${st==='rechazada'?'Volver a solicitar':'Solicitar ser instructor'}</button></section>`;
+const r=$("#rq");if(r)r.onclick=()=>{BY.set('users',G('users').map(x=>x.email===s.email?{...x,solicitud:'pendiente'}:x));draw()};return}
+$("#h").textContent="Mis cursos";$("#sb").textContent="Crea cursos gratuitos o de pago. El administrador revisa los de instructores antes de publicarlos.";
+const c=G('courses').filter(x=>x.email===s.email);
+b.innerHTML='<section class="card">'+(c.length?c.map(x=>`<div class="row"><div><b>${x.titulo}</b><small>${x.categoria} · ${x.precio?'S/ '+x.precio:'Gratis'}</small></div><div><span class="bd ${x.estado}">${x.estado}</span>${x.estado==='publicado'?`<a class="btn s" href="inicio.html?promo=${x.id}">Promocionar</a>`:''}<a class="btn g s" href="constructor.html?edit=${x.id}">Editar</a><button class="del" data-d="${x.id}">Eliminar</button></div></div>`).join(""):'<p class="sub" style="margin:0">Todavía no has creado cursos. Pulsa «+ Crear curso» para empezar.</p>')+'</section>'}
+$("#box").onclick=e=>{const d=e.target.dataset.d;if(d&&confirm("¿Eliminar este curso?")){const c=G('courses').find(x=>x.id===d);c&&c.portada&&BY.delF(c.portada);BY.set('courses',G('courses').filter(x=>x.id!==d));draw()}};
+draw();
+</script></body></html>

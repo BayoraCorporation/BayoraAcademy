@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Administración · Bayora Academy</title>
+<script src="bayora.js"></script>
+<script>{const s=BY.session(),u=s&&BY.get('users').find(x=>x.email===s.email);if(!s)location.replace('index.html#login');else if(!u||u.rol!=='admin')location.replace('inicio.html')}</script>
+<style>
+:root{--night:#06151b;--green:#0fd3a0;--deep:#0a6b5b;--ink:#10262b;--soft:#52686d;--line:#dde6e9;--mist:#f1f6f8}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--mist);color:var(--ink);line-height:1.45}
+button{font:inherit;cursor:pointer;border:0}input,select,textarea{font:inherit}
+.top{background:var(--night);color:#fff;position:sticky;top:0;z-index:5}.top div{max-width:1120px;margin:auto;padding:0 24px;height:58px;display:flex;align-items:center;gap:18px}
+.top b{letter-spacing:.2em}.top small{color:var(--green);letter-spacing:.3em;font-size:.6rem;margin-left:6px}.top a,.top button{color:#dfeaea;font-size:.88rem;text-decoration:none;background:none}.top a:hover,.top button:hover{color:var(--green)}.sp{margin-left:auto}
+main{max-width:1120px;margin:auto;padding:28px 24px 60px}h1{font-size:1.7rem;animation:up .6s both}.sub{color:var(--soft);margin:4px 0 22px}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+#stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px}.st{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;animation:up .6s both;transition:transform .2s,box-shadow .2s}.st:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(8,30,36,.1)}.st:nth-child(2){animation-delay:.07s}.st:nth-child(3){animation-delay:.14s}.st:nth-child(4){animation-delay:.21s}.st:nth-child(5){animation-delay:.28s}
+.st b{display:block;font-size:1.9rem;color:var(--deep)}.st span{font-size:.8rem;color:var(--soft)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tabs button{padding:9px 18px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:600;font-size:.88rem;transition:.15s}.tabs button.on{background:var(--green);border-color:var(--green);color:#03231c}
+#panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;animation:up .4s both;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}th{text-align:left;color:var(--soft);font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;padding:8px;border-bottom:1px solid var(--line)}td{padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:middle}td small{display:block;color:var(--soft)}
+.act{white-space:nowrap}.act button,.f button{padding:7px 12px;border-radius:8px;background:var(--deep);color:#fff;font-size:.78rem;font-weight:600;margin-right:6px}.act button:hover,.f button:hover{filter:brightness(1.15)}.act .del{background:#fdecea;color:#8f2a1f}
+.bd{padding:3px 10px;border-radius:999px;font-size:.72rem;font-weight:700}.publicado,.activa{background:#e1f6ef;color:#0a5c4a}.pendiente,.programada{background:#fff4d6;color:#8a6200}.rechazado,.vencida{background:#fdecea;color:#8f2a1f}
+.f{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:20px;align-items:end}.f label{display:flex;flex-direction:column;gap:5px;font-size:.78rem;font-weight:600}.f input,.f select,.f textarea{padding:10px;border:1px solid #8c9da1;border-radius:8px}.f .w{grid-column:1/-1}.f button{padding:12px;font-size:.88rem;margin:0}
+details.nc{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:20px;background:#f8fbfb}details.nc summary{cursor:pointer;font-weight:700;color:var(--deep)}.nc .f{margin-top:14px}.lr{display:grid;grid-template-columns:1fr 150px 40px;gap:8px;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px;background:#fff;animation:up .3s both}.lr textarea,.lr input[type=file]{grid-column:1/-1}.lr input,.lr select,.lr textarea{padding:9px;border:1px solid #8c9da1;border-radius:8px}.lr [hidden]{display:none}.ad{background:#e6eeef!important;color:var(--ink)!important}h3.sec{margin:20px 0 8px;font-size:1rem}.pg{height:8px;background:var(--line);border-radius:99px;overflow:hidden;min-width:90px}.pg i{display:block;height:100%;background:var(--green)}#vr{margin:-8px 0 18px}#vr p{padding:12px;border-radius:8px;font-weight:600}#vr .g{background:#e1f6ef;color:#0a5c4a}#vr .r{background:#fdecea;color:#8f2a1f}.empty{color:var(--soft);padding:18px 0}#toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,30px);background:var(--night);color:#fff;padding:12px 22px;border-radius:999px;opacity:0;transition:.3s;pointer-events:none}#toast.on{opacity:1;transform:translate(-50%,0)}
+.f [hidden]{display:none!important}.pf .lb{display:block;font-size:.78rem;margin-bottom:6px}.seg{display:flex;gap:8px;flex-wrap:wrap}.f .seg label{flex-direction:row;align-items:center;gap:8px;border:1px solid #8c9da1;border-radius:8px;padding:10px 16px;cursor:pointer;background:#fff}.f .seg input{width:auto;padding:0;accent-color:#0a6b5b}.f .seg label:has(:checked){border-color:var(--deep);background:#e7f7f2}
+@media(max-width:800px){#stats{grid-template-columns:1fr 1fr}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<main><h1>Panel de administración</h1><p class="sub">Aprueba cursos, crea promociones, publica novedades y gestiona usuarios.</p>
+<div id="stats"></div><div class="tabs" id="tabs"></div><div id="panel"></div></main><div id="toast"></div>
+<script>
+BY.hdr('a');const G=BY.get,S=BY.set,E=BY.esc,$=s=>document.querySelector(s),bd=(t,c)=>`<span class="bd ${c||t}">${t}</span>`;
+const TABS={mon:"Monitoreo",cursos:"Cursos",promos:"Promociones",certs:"Certificados",pagos:"Pagos",posts:"Publicaciones",users:"Usuarios"};let tab=location.hash==="#pagos"?"pagos":"mon";
+const toast=t=>{const e=$("#toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),2200)};
+const estado=p=>{const h=BY.hoy();return h<p.inicio?"programada":h>p.fin?"vencida":"activa"};
+const tbl=(h,rows)=>rows?`<table><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${rows}</table>`:'<p class="empty">Aún no hay nada aquí.</p>';
+const LR=()=>`<div class="lr"><input name="lt" placeholder="Título de la lección"><select name="tp"><option value="texto">Texto</option><option value="imagen">Imagen</option><option value="video">Video</option></select><button type="button" class="del" data-a="rml">✕</button><textarea name="tx" rows="3" placeholder="Escribe aquí el contenido o una descripción…"></textarea><input type="file" name="fl" hidden></div>`;
+const CF=()=>`<a href="constructor.html?new=1" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;margin-bottom:20px;border-radius:14px;background:var(--night);color:#fff"><span><b style="font-size:1.05rem">Constructor de cursos</b><small style="display:block;color:#9fd9cc">Niveles, sesiones, multimedia, evaluaciones y portada</small></span><span style="background:var(--green);color:#03231c;font-weight:700;padding:10px 20px;border-radius:999px;white-space:nowrap">+ Crear curso</span></a>`;
+const prog=(c,d)=>Math.round(100*d.length/BY.lessons(c).length);
+const V={
+mon:()=>{const en=G('enroll',{}),cs=G('courses'),us=G('users'),rows=[];Object.entries(en).forEach(([em,m])=>Object.entries(m).forEach(([i,d])=>{const c=cs.find(x=>x.id===i);if(c)rows.push({em,c,p:prog(c,d)})}));
+const per=cs.map(c=>{const r=rows.filter(x=>x.c.id===c.id);return`<tr><td><b>${c.titulo}</b></td><td>${r.length}</td><td>${r.length?Math.round(r.reduce((s,x)=>s+x.p,0)/r.length):0}%</td><td>${r.filter(x=>x.p===100).length}</td></tr>`}).join("");
+return`<h3 class="sec" style="margin-top:0">Por curso</h3>`+tbl(["Curso","Inscritos","Progreso promedio","Terminados"],per)+`<h3 class="sec">Por alumno</h3>`+tbl(["Alumno","Curso","Progreso"],rows.map(x=>{const u=us.find(y=>y.email===x.em)||{};return`<tr><td><b>${E(u.nombre||x.em)}</b><small>${E(x.em)}</small></td><td>${x.c.titulo}</td><td><div class="pg"><i style="width:${x.p}%"></i></div><small>${x.p}%</small></td></tr>`}).join(""))},
+certs:()=>`<form class="f" id="fv"><label>Validar un certificado por su código<input name="code" placeholder="BAY-XXXXXX-XXXX" required></label><button>Validar</button></form><div id="vr"></div>`+tbl(["Código","Alumno","Curso","Fecha","Estado",""],G('certs').map(r=>`<tr><td><b>${r.code}</b></td><td>${E(r.nombre)}<small>${E(r.email)}${r.dni?' · DNI '+E(r.dni):''}</small></td><td>${r.curso}</td><td>${r.fecha}</td><td>${bd(r.estado,r.estado==='vigente'?'publicado':'rechazado')}</td><td class="act"><button class="del" data-a="crev" data-i="${r.code}">${r.estado==='vigente'?'Revocar':'Reactivar'}</button></td></tr>`).join("")),
+cursos:()=>CF()+tbl(["Curso","Categoría","Precio","Estado",""],G('courses').map(x=>`<tr><td><b>${x.titulo}</b><small>${x.instructor}</small></td><td>${x.categoria}</td><td>${x.precio?'S/ '+x.precio:'Gratis'}</td><td>${bd(x.estado)}</td><td class="act"><button onclick="location.href='constructor.html?edit=${x.id}'">Editar</button>${x.estado!=='publicado'?`<button data-a="pub" data-i="${x.id}">Aprobar</button>`:''}${x.estado==='pendiente'?`<button class="del" data-a="rej" data-i="${x.id}">Rechazar</button>`:''}<button class="del" data-a="delc" data-i="${x.id}">Eliminar</button></td></tr>`).join("")),
+promos:()=>{const cs=G('courses').filter(x=>x.estado==='publicado');return`<form class="f" id="fp"><label>Curso<select name="curso" required>${cs.map(c=>`<option value="${c.id}">${c.titulo}</option>`).join("")}</select></label><label>Inicio<input type="date" name="inicio" value="${BY.hoy()}" required></label><label>Fin<input type="date" name="fin" required></label><label>Precio promocional (opcional)<input type="number" name="precio" min="0" step="0.01" placeholder="Igual al del curso"></label><button>Crear promoción</button></form>`+tbl(["Curso","Precio","Vigencia","Estado",""],G('promos').map(p=>`<tr><td><b>${p.curso}</b><small>${p.creador}${p.origen==='pago'?' · pagada por Yape':''}</small></td><td>${p.precio?'S/ '+p.precio:'Gratis'}</td><td>${p.inicio} → ${p.fin}</td><td>${bd(estado(p))}</td><td class="act"><button class="del" data-a="delp" data-i="${p.id}">Quitar</button></td></tr>`).join(""))},
+pagos:()=>{const L=G('pagos').slice().reverse(),tot={},sm={PEN:'S/ ',USD:'US$ ',EUR:'€ '},m=p=>(sm[p.moneda]||p.moneda+' ')+(+p.monto).toFixed(2);
+L.filter(p=>p.estado==='pagado').forEach(p=>tot[p.moneda]=(tot[p.moneda]||0)+p.monto);
+const pend=L.filter(p=>p.estado==='verificando').reverse(),hist=L.filter(p=>p.estado!=='verificando');
+const ago=p=>{const mi=Math.max(0,Math.round((Date.now()-(p.ts||0))/60000));return mi<1?'ahora':mi<60?'hace '+mi+' min':mi<1440?'hace '+Math.floor(mi/60)+' h '+(mi%60)+' min':p.fecha};
+const es=p=>p.estado==='pagado'?bd('aprobado','publicado'):bd('rechazado','rechazado');
+return`<h3 class="sec" style="margin-top:0">Por verificar (${pend.length})</h3><p class="sub" style="margin:0 0 12px">Abre Yape → <b>Movimientos</b> y busca el <b>monto</b> y el <b>N.º de operación</b> de cada fila. Si coincide, pulsa Aprobar y el alumno recibe acceso al instante.</p>`+
+tbl(["Alumno (nombre en Yape)","Curso","Monto","N.º de operación","Enviado",""],pend.map(p=>`<tr><td><b>${E(p.detalle.titular||p.nombre)}</b><small>${E(p.email)}</small></td><td>${E(p.curso)}${p.tipo==='promo'?'<small><b>Promoción · '+E(p.plan.nombre)+'</b></small>':''}</td><td><b style="font-size:1.05rem">${m(p)}</b></td><td><b>${E(p.detalle.op)}</b></td><td>${ago(p)}</td><td class="act"><button data-a="papr" data-i="${p.id}">Aprobar</button><button class="del" data-a="prej" data-i="${p.id}">Rechazar</button></td></tr>`).join(""))+
+`<h3 class="sec">Historial · Ingresos confirmados: ${Object.keys(tot).length?Object.entries(tot).map(([k,v])=>(sm[k]||k+' ')+v.toFixed(2)).join(' · '):'S/ 0.00'}</h3>`+
+tbl(["Operación","Alumno","Curso","Monto","N.º Yape","Resultado"],hist.map(p=>`<tr><td><b>${E(p.id)}</b><small>${E(p.fecha)} ${E(p.hora||'')}</small></td><td>${E(p.nombre||p.email)}<small>${E(p.email)}</small></td><td>${E(p.curso)}${p.tipo==='promo'?'<small>Promoción · '+E(p.plan.nombre)+'</small>':''}</td><td>${m(p)}</td><td>${E(p.detalle&&p.detalle.op||'')}</td><td>${es(p)}${p.motivo?'<small>'+E(p.motivo)+'</small>':''}</td></tr>`).join(""))},
+posts:()=>`<form class="f pf" id="fo" novalidate>
+<label class="w">Título<input name="titulo" required maxlength="90" placeholder="Ej. Nueva ruta de aprendizaje en Tecnología"></label>
+<label class="w">Descripción<textarea name="resumen" rows="3" required maxlength="600" placeholder="Cuéntales a los alumnos de qué trata esta publicación…"></textarea></label>
+<div class="w"><b class="lb">Tipo de contenido</b><div class="seg"><label><input type="radio" name="tipo" value="imagen" checked>🖼 Imagen</label><label><input type="radio" name="tipo" value="video">🎬 Video</label></div></div>
+<div class="w"><b class="lb">¿Cómo quieres agregarlo?</b><div class="seg"><label><input type="radio" name="origen" value="archivo" checked>⬆ Subir archivo</label><label><input type="radio" name="origen" value="enlace">🔗 Pegar enlace</label></div></div>
+<label class="w" data-o="archivo"><span id="lf">Imagen (JPG, PNG o WebP · máx. 10 MB)</span><input type="file" name="fl" accept="image/*"></label>
+<label class="w" data-o="enlace" hidden><span id="lu">Enlace de la imagen (https://…)</span><input type="text" name="url" placeholder="https://…"></label>
+<label>Texto del botón (opcional)<input name="bt" maxlength="30" placeholder="Ver más"></label>
+<label>Enlace del botón (opcional)<input name="bu" placeholder="https://…"></label>
+<button>Publicar</button></form>`+tbl(["Publicación","Contenido","Fecha",""],G('posts').map(p=>`<tr><td><b>${p.titulo}</b><small>${(p.resumen||'').slice(0,90)}${(p.resumen||'').length>90?'…':''}</small></td><td>${p.tipo==='video'?bd('🎬 Video','activa'):p.tipo==='imagen'?bd('🖼 Imagen','programada'):bd('Sin multimedia','vencida')}<small>${p.tipo?(p.origen==='enlace'?'Enlace':'Archivo subido'):''}</small></td><td>${p.fecha}</td><td class="act"><button class="del" data-a="delo" data-i="${p.id}">Eliminar</button></td></tr>`).join("")),
+users:()=>tbl(["Usuario","Rol",""],G('users').slice().sort((a,b)=>(b.solicitud==='pendiente')-(a.solicitud==='pendiente')).map(u=>`<tr><td><b>${u.nombre}</b><small>${u.email}</small></td><td>${u.rol==='admin'?bd('administrador','publicado'):u.instructor?bd('instructor','activa'):u.solicitud==='pendiente'?bd('solicita ser instructor','pendiente'):bd('alumno','programada')}</td><td class="act">${u.rol==='admin'?'':`${u.solicitud==='pendiente'?`<button data-a="aprin" data-i="${u.email}">Aprobar instructor</button><button class="del" data-a="rechin" data-i="${u.email}">Rechazar</button>`:`<button data-a="tin" data-i="${u.email}">${u.instructor?'Quitar instructor':'Hacer instructor'}</button>`}<button class="del" data-a="delu" data-i="${u.email}">Eliminar</button>`}</td></tr>`).join(""))};
+function draw(){const u=G('users'),c=G('courses'),h=BY.hoy();
+$("#stats").innerHTML=[["Usuarios",u.length],["Instructores",u.filter(x=>x.instructor).length],["Cursos publicados",c.filter(x=>x.estado==='publicado').length],["Cursos pendientes",c.filter(x=>x.estado==='pendiente').length],["Promociones activas",G('promos').filter(p=>estado(p)==='activa').length],["Solicitudes de instructor",u.filter(x=>x.solicitud==='pendiente').length],["Pagos por verificar",G('pagos').filter(x=>x.estado==='verificando').length]].map(([t,v])=>`<div class="st"><b>${v}</b><span>${t}</span></div>`).join("");
+const np=G('pagos').filter(x=>x.estado==='verificando').length;$("#tabs").innerHTML=Object.entries(TABS).map(([k,t])=>`<button data-t="${k}" class="${k===tab?'on':''}">${t}${k==='pagos'&&np?` (${np})`:''}</button>`).join("");
+const p=$("#panel");p.style.animation="none";p.offsetHeight;p.style.animation="";p.innerHTML=V[tab]()}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-t]");if(t){tab=t.dataset.t;return draw()}
+const b=e.target.closest("[data-a]");if(!b)return;const i=b.dataset.i,a=b.dataset.a;
+const up=(k,fn,m)=>{S(k,fn(G(k)));toast(m);draw()};
+if(a==="pub"||a==="rej")up('courses',l=>l.map(x=>x.id===i?{...x,estado:a==="pub"?"publicado":"rechazado"}:x),a==="pub"?"Curso publicado":"Curso rechazado");
+if(a==="addl")$("#ll").insertAdjacentHTML("beforeend",LR());
+if(a==="rml"&&document.querySelectorAll(".lr").length>1)b.closest(".lr").remove();
+if(a==="crev")up('certs',l=>l.map(x=>x.code===i?{...x,estado:x.estado==='vigente'?'revocado':'vigente'}:x),"Certificado actualizado");
+if(a==="delc"&&confirm("¿Eliminar este curso?")){const c=G('courses').find(x=>x.id===i);(c.lecciones||[]).forEach(l=>l.media&&BY.delF(l.media));c.portada&&BY.delF(c.portada);up('courses',l=>l.filter(x=>x.id!==i),"Curso eliminado")}
+if(a==="papr"){const p=G('pagos').find(x=>x.id===i);if(p&&confirm("¿Ya ves en tu Yape "+(+p.monto).toFixed(2)+" con N.º de operación "+p.detalle.op+"?\n"+(p.tipo==="promo"?"Al aprobar, el curso aparece en Promociones por "+p.plan.nombre+".":"Al aprobar, el alumno recibe acceso al curso.")+"")){BY.resolverPago(i,true);toast(p.tipo==="promo"?"Pago aprobado · promoción publicada":"Pago aprobado · acceso concedido");draw()}}
+if(a==="prej"){const p=G('pagos').find(x=>x.id===i),mo=p&&prompt("Motivo del rechazo (el alumno lo verá):","No encontramos este pago en Yape. Revisa el N.º de operación.");if(mo!==null&&mo!==false&&p){BY.resolverPago(i,false,mo.trim());toast("Pago rechazado");draw()}}
+if(a==="delp")up('promos',l=>l.filter(x=>x.id!==i),"Promoción retirada");
+if(a==="delo"&&confirm("¿Eliminar esta publicación?")){const p=G('posts').find(x=>x.id===i);p&&p.media&&BY.delF(p.media);up('posts',l=>l.filter(x=>x.id!==i),"Publicación eliminada")}
+if(a==="tin")up('users',l=>l.map(x=>x.email===i?{...x,instructor:!x.instructor,solicitud:null}:x),"Rol actualizado");
+if(a==="aprin")up('users',l=>l.map(x=>x.email===i?{...x,instructor:true,solicitud:null}:x),"Instructor aprobado");
+if(a==="rechin")up('users',l=>l.map(x=>x.email===i?{...x,solicitud:"rechazada"}:x),"Solicitud rechazada");
+if(a==="delu"&&confirm("¿Eliminar este usuario?"))up('users',l=>l.filter(x=>x.email!==i),"Usuario eliminado")});
+document.addEventListener("change",e=>{if(e.target.name==="tp"){const fl=e.target.closest(".lr").querySelector("[name=fl]");fl.hidden=e.target.value==="texto";fl.accept=e.target.value==="video"?"video/*":"image/*"}});
+async function newCourse(f){const bt=f.querySelector(".sv");bt.disabled=true;bt.textContent="Subiendo archivos…";
+try{const cov=f.por.files[0];if(cov&&cov.size>10e6)throw"La portada pesa más de 10 MB";const L=[];
+for(const r of f.querySelectorAll(".lr")){const q=n=>r.querySelector(`[name=${n}]`),t=q("lt").value.trim(),tipo=q("tp").value,tx=q("tx").value.trim(),fl=q("fl").files[0];if(!t&&!tx&&!fl)continue;if(!t)throw"Cada lección necesita un título";
+if(tipo!=="texto"&&!fl)throw`Falta subir el ${tipo} de "${t}"`;if(fl&&fl.size>(tipo==="video"?300e6:10e6))throw`El archivo de "${t}" es muy pesado (máx. ${tipo==="video"?300:10} MB)`;
+L.push({t:E(t),tipo,texto:E(tx),media:tipo!=="texto"?await BY.putF(fl):null})}
+const ss=BY.session();S('courses',[...G('courses'),{id:BY.id(),email:ss.email,titulo:E(f.titulo.value.trim()),categoria:f.cat.value,instructor:E(f.ins.value.trim()||"Bayora Academy"),precio:+f.precio.value,rating:0,estudiantes:0,estado:"publicado",colores:BY.PAL[f.cat.value],descripcion:E(f.desc.value.trim()),portada:cov?await BY.putF(cov):null,lecciones:L}]);
+toast("Curso creado y publicado");tab="cursos";draw()}catch(x){toast(typeof x==="string"?x:"No se pudo guardar (¿poco espacio en el navegador?)");bt.disabled=false;bt.textContent="Crear y publicar curso"}}
+function validar(f){const r=G('certs').find(x=>x.code===f.code.value.trim().toUpperCase());$("#vr").innerHTML=!r?'<p class="r">✖ No existe ningún certificado con ese código.</p>':r.estado==='vigente'?`<p class="g">✔ Válido: ${E(r.nombre)} completó «${r.curso}» el ${r.fecha}.</p>`:`<p class="r">✖ Certificado revocado (${E(r.nombre)} · ${r.curso}).</p>`}
+/* Publicaciones: el formulario cambia según sea imagen o video, archivo o enlace */
+function ajustaPost(f){const v=n=>f.elements[n].value,vid=v("tipo")==="video",arc=v("origen")==="archivo";
+f.querySelectorAll("[data-o]").forEach(l=>l.hidden=l.dataset.o!==v("origen"));
+f.elements.fl.accept=vid?"video/*":"image/*";
+$("#lf").textContent=vid?"Video (MP4 o WebM · máx. 300 MB)":"Imagen (JPG, PNG o WebP · máx. 10 MB)";
+$("#lu").textContent=vid?"Enlace del video (YouTube, Vimeo o archivo .mp4)":"Enlace de la imagen (https://…)";
+f.elements.fl.value=""}
+document.addEventListener("change",e=>{const f=e.target.closest&&e.target.closest("#fo");if(f&&(e.target.name==="tipo"||e.target.name==="origen"))ajustaPost(f)});
+const okUrl=t=>/^https?:\/\/[^\s<>"']+\.[^\s<>"']+$/i.test(t);
+async function newPost(f){const x=f.elements,bt=f.querySelector("button:last-of-type");bt.disabled=true;bt.textContent="Publicando…";let key=null;
+try{const tipo=x.tipo.value,org=x.origen.value,t=x.titulo.value.trim(),d=x.resumen.value.trim(),bu=x.bu.value.trim(),bx=x.bt.value.trim();let url="";
+if(t.length<3)throw"Escribe un título para la publicación.";if(d.length<10)throw"La descripción es muy corta.";
+if(org==="archivo"){const fl=x.fl.files[0];if(!fl)throw tipo==="video"?"Sube un video o cambia a «Pegar enlace».":"Sube una imagen o cambia a «Pegar enlace».";
+if(!fl.type.startsWith(tipo==="video"?"video/":"image/"))throw tipo==="video"?"El archivo debe ser un video.":"El archivo debe ser una imagen.";
+if(fl.size>(tipo==="video"?300e6:10e6))throw`El archivo es muy pesado (máx. ${tipo==="video"?300:10} MB).`;key=await BY.putF(fl)}
+else{url=x.url.value.trim();if(!okUrl(url))throw"Escribe un enlace válido que empiece con https://"}
+if(bu&&!okUrl(bu))throw"El enlace del botón no es válido (debe empezar con https://).";
+S('posts',[{id:BY.id(),titulo:E(t),resumen:E(d),fecha:new Date().toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric'}),ts:Date.now(),tipo,origen:org,media:key,url,boton:bu?E(bx||"Ver más"):"",enlace:bu,colores:["#12343b","#1f6b5e","#19b5c4"]},...G('posts')]);
+toast("Publicación creada · ya aparece en Inicio");draw()}
+catch(er){if(key)BY.delF(key);toast(typeof er==="string"?er:"No se pudo guardar (¿poco espacio en el navegador?)");bt.disabled=false;bt.textContent="Publicar"}}
+document.addEventListener("submit",e=>{e.preventDefault();const f=e.target;if(f.id==="fc")return newCourse(f);if(f.id==="fv")return validar(f);if(f.id==="fo")return newPost(f);
+if(f.id==="fp"){const c=G('courses').find(x=>x.id===f.curso.value);if(!c)return toast("Primero publica un curso");if(f.fin.value<f.inicio.value)return toast("La fecha final es anterior a la inicial");
+ S('promos',[...G('promos'),{id:BY.id(),curso:c.titulo,categoria:c.categoria,creador:c.instructor,rating:c.rating||4.5,estudiantes:c.estudiantes||0,precio:f.precio.value===''?c.precio:+f.precio.value,inicio:f.inicio.value,fin:f.fin.value,colores:c.colores}]);toast("Promoción creada")}
+draw()});
+addEventListener("hashchange",()=>{if(location.hash==="#pagos"){tab="pagos";draw()}});
+addEventListener("storage",e=>{if(e.key==="bayora_pagos"&&tab==="pagos")draw()});
+draw();
+</script></body></html>

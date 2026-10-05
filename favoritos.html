@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Favoritos · Bayora Academy</title>
+<script src="bayora.js"></script>
+<style>main{max-width:1120px;margin:auto;padding:28px 24px 60px}h1{font-size:1.7rem;animation:up .5s both}.sub{color:var(--soft);margin:4px 0 22px}
+.fv{position:relative;display:flex;animation:up .5s both}.fv .cd{flex:1;min-width:0}
+.rm{position:absolute;top:10px;right:10px;z-index:2;display:flex;align-items:center;gap:6px;background:rgba(6,21,27,.78);color:#fff;font-size:.76rem;font-weight:600;padding:6px 12px;border-radius:999px;backdrop-filter:blur(4px)}.rm:hover{background:#8f2a1f}.rm:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.rm svg{width:14px;height:14px;stroke:currentColor;fill:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.empty{background:#fff;border:1px solid var(--line);border-radius:14px;color:var(--soft);padding:40px 24px;text-align:center}.empty a{color:var(--deep);font-weight:700}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:#10262b;color:#fff;padding:12px 22px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:.25s;z-index:80}.toast.on{opacity:1;transform:translate(-50%,0)}</style></head><body>
+<main><h1>Favoritos</h1><p class="sub" id="s"></p><div class="grid" id="g"></div></main>
+<div class="toast" id="ts" role="status" aria-live="polite"></div>
+<script>
+const {s}=BY.hdr("f"),G=BY.get,$=x=>document.querySelector(x);let tm;
+const toast=m=>{const t=$("#ts");t.textContent=m;t.className='toast on';clearTimeout(tm);tm=setTimeout(()=>t.className='toast',2200)};
+const BM='<svg viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg>';
+function lista(){
+ const ids=((G('social',{}).g||{})[s.email]||[]),cs=G('courses').filter(c=>c.estado==='publicado');
+ /* el último guardado aparece primero */
+ const L=[...ids].reverse().map(i=>cs.find(c=>c.id===i)).filter(Boolean);
+ $("#s").textContent=L.length?(L.length===1?'1 curso guardado':L.length+' cursos guardados'):'Los cursos que guardes en la comunidad aparecerán aquí.';
+ $("#g").innerHTML=L.length?L.map((c,i)=>`<div class="fv" style="animation-delay:${i*50}ms">${BY.card(c)}<button class="rm" type="button" data-q="${c.id}" aria-label="Quitar ${BY.esc(c.titulo)} de favoritos">${BM}Quitar</button></div>`).join(''):
+  '<div class="empty" style="grid-column:1/-1">Todavía no tienes cursos en favoritos. Usa «Guardar» en cualquier publicación de la <a href="comunidad.html">comunidad</a> para verlos aquí.</div>';
+ BY.hydrate($("#g"))}
+$("#g").onclick=e=>{const b=e.target.closest('[data-q]');if(!b)return;
+ const o=G('social',{}),g=o.g=o.g||{};g[s.email]=(g[s.email]||[]).filter(i=>i!==b.dataset.q);BY.set('social',o);toast('Quitado de favoritos');lista()};
+lista();
+</script></body></html>

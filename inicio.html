@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inicio · Bayora Academy</title>
+<script>
+  // Si no hay sesión iniciada, vuelve a la página pública y abre "Iniciar sesión".
+  try { if (!JSON.parse(localStorage.getItem("bayora_session"))) throw 0; }
+  catch (e) { location.replace("index.html#login"); }
+</script>
+<script src="bayora.js"></script>
+<style>
+  :root{
+    --bg:#f6f8f8;
+    --surface:#ffffff;
+    --line:#dfe7e6;
+    --ink:#10302c;
+    --ink-soft:#4d6663;
+    --brand:#1f6b5e;
+    --brand-dark:#16524a;
+    --accent:#19b5c4;
+    --dark:#0e1f25;
+    --dark-2:#14303a;
+    --dark-line:#244550;
+    --on-dark:#e9f3f2;
+    --on-dark-soft:#9fb8b8;
+    --gold:#c58a1b;
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-force-light]){
+      --bg:#0a1519; --surface:#102129; --line:#1d3640;
+      --ink:#e6f1f0; --ink-soft:#9bb4b3;
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.45;
+  }
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  /* ---------- Estructura ---------- */
+  .app{display:block}
+
+  /* ---------- Barra lateral ---------- */
+  .sidebar{
+    background:var(--dark);color:var(--on-dark);
+    padding:20px 14px;position:sticky;top:0;height:100vh;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px;font-weight:700;font-size:1.05rem;letter-spacing:.2px}
+  .brand-mark{
+    width:34px;height:34px;border-radius:10px;
+    background:linear-gradient(135deg,var(--accent),var(--brand));
+    display:grid;place-items:center;font-weight:800;color:#fff;
+  }
+  .nav a{
+    display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;
+    color:var(--on-dark-soft);font-size:.93rem;transition:background .15s,color .15s;
+  }
+  .nav a:hover{background:var(--dark-2);color:var(--on-dark)}
+  .nav a[aria-current="page"]{background:var(--dark-2);color:#fff;box-shadow:inset 3px 0 0 var(--accent)}
+  .nav svg{width:19px;height:19px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ---------- Cabecera ---------- */
+  .main{min-width:0}
+  .topbar{
+    position:sticky;top:0;z-index:5;
+    display:flex;align-items:center;gap:16px;padding:12px 28px;
+    background:var(--surface);border-bottom:1px solid var(--line);
+  }
+  .search{flex:1;max-width:560px;position:relative}
+  .search input{
+    width:100%;padding:10px 14px 10px 40px;border-radius:999px;
+    border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;
+  }
+  .search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;stroke:var(--ink-soft);fill:none;stroke-width:2;stroke-linecap:round}
+  .top-actions{margin-left:auto;display:flex;align-items:center;gap:12px}
+  .icon-btn{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);position:relative}
+  .icon-btn svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .icon-btn .dot{position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--accent);border:2px solid var(--surface)}
+  .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--accent));color:#fff;display:grid;place-items:center;font-weight:700;font-size:.9rem}
+
+  .usermenu{position:relative}
+  .avatar{cursor:pointer}
+  .dropdown{
+    position:absolute;right:0;top:46px;min-width:230px;z-index:10;
+    background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;
+    box-shadow:0 12px 30px rgba(8,30,36,.16);display:flex;flex-direction:column;gap:2px;
+  }
+  .dropdown[hidden]{display:none}
+  .dropdown strong{font-size:.95rem}
+  .dropdown span{font-size:.8rem;color:var(--ink-soft);margin-bottom:10px;overflow-wrap:anywhere}
+  .dropdown button{padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-size:.85rem;font-weight:600;text-align:center}
+  .dropdown button:hover{border-color:var(--brand);color:var(--brand)}
+  .saludo{font-size:.92rem;font-weight:600;color:var(--brand);margin-bottom:4px}
+
+  /* ---------- Contenido ---------- */
+  .content{
+    display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:28px;
+    padding:26px 28px 40px;max-width:1400px;
+  }
+  .intro h1{font-size:1.65rem;line-height:1.2;letter-spacing:-.01em;color:var(--ink)}
+  .intro p{margin-top:6px;color:var(--ink-soft);font-size:.95rem;max-width:62ch}
+
+  .section{margin-top:26px}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .section-head h2{font-size:1.15rem;letter-spacing:-.005em}
+  .section-head a{font-size:.85rem;color:var(--brand);font-weight:600}
+  .section-head a:hover{text-decoration:underline}
+
+  /* ---------- Publicación de Bayora (compacta, 2 columnas) ---------- */
+  .posts{display:grid;gap:12px}
+  .post{
+    position:relative;display:grid;grid-template-columns:36% 1fr;gap:18px;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:12px;max-height:200px;overflow:hidden;
+    transition:opacity .28s ease,transform .28s ease,max-height .32s ease,padding .32s ease,margin .32s ease,border-width .32s ease;
+  }
+  .post.hiding{opacity:0;transform:scale(.98);max-height:0;padding-top:0;padding-bottom:0;margin:0;border-width:0}
+  .post[hidden]{display:none}
+  .post-img{border-radius:10px;overflow:hidden;min-height:150px;position:relative}
+  .post-img svg{width:100%;height:100%;display:block}
+  .post-img img,.post-img video,.post-img iframe{width:100%;height:100%;display:block;border:0;background:#0e1f25}
+  .post-img img{object-fit:cover}.post-img video{object-fit:contain}
+  .post-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:4px}.post-actions .btn{margin-top:0}
+  .tipo{font-weight:700;color:var(--brand)}
+  .post-body{display:flex;flex-direction:column;justify-content:center;gap:6px;padding:4px 36px 4px 0;min-width:0}
+  .post-meta{display:flex;align-items:center;gap:10px;font-size:.78rem;color:var(--ink-soft)}
+  .badge-bayora{
+    display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--brand);font-size:.78rem;
+  }
+  .badge-bayora i{width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block}
+  .post h3{font-size:1.05rem;line-height:1.3}
+  .post p{font-size:.88rem;color:var(--ink-soft);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    background:var(--brand);color:#fff;font-weight:600;border-radius:9px;
+    padding:8px 16px;font-size:.85rem;transition:background .15s;align-self:flex-start;margin-top:4px;
+  }
+  .btn:hover{background:var(--brand-dark)}
+  .btn.small{padding:6px 12px;font-size:.78rem;margin-top:0}
+  .btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--brand)}
+  .btn.ghost:hover{background:var(--brand);color:#fff}
+  .close{
+    position:absolute;top:6px;right:6px;width:32px;height:32px;border-radius:50%;
+    display:grid;place-items:center;color:var(--ink-soft);transition:background .15s,color .15s;
+  }
+  .close:hover{background:var(--bg);color:var(--ink)}
+  .close svg{width:15px;height:15px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round}
+
+  /* ---------- Cursos promocionados ---------- */
+  .promo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(186px,1fr));gap:14px}
+  .course{
+    display:flex;flex-direction:column;background:var(--surface);
+    border:1px solid var(--line);border-radius:12px;overflow:hidden;
+    transition:transform .15s,border-color .15s;
+  }
+  .course:hover{transform:translateY(-2px);border-color:var(--accent)}
+  .cover{height:128px;position:relative}
+  .cover svg{width:100%;height:100%;display:block}
+  .tag-promo{
+    position:absolute;top:8px;left:8px;background:rgba(14,31,37,.82);color:#fff;
+    font-size:.65rem;font-weight:700;letter-spacing:.06em;padding:3px 7px;border-radius:6px;
+  }
+  .course-body{display:flex;flex-direction:column;gap:4px;padding:10px 12px 12px;flex:1}
+  .cat{font-size:.72rem;color:var(--brand);font-weight:700}
+  .course h3{
+    font-size:.92rem;line-height:1.28;min-height:2.56em;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .by{font-size:.78rem;color:var(--ink-soft)}
+  .stats{display:flex;align-items:center;gap:8px;font-size:.76rem;color:var(--ink-soft)}
+  .stars{color:var(--gold);font-weight:700}
+  .course-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:8px}
+  .price{font-weight:800;font-size:.95rem}
+  .price.free{color:var(--brand)}
+
+  /* ---------- Descubre ---------- */
+  .cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+  .cat-card{
+    display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;
+    background:var(--surface);border:1px solid var(--line);font-size:.88rem;font-weight:600;
+    transition:border-color .15s,background .15s;
+  }
+  .cat-card:hover{border-color:var(--accent)}
+  .cat-card span.ico{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-size:1rem;flex:none}
+
+  /* ---------- Para creadores ---------- */
+  .creators{
+    display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    background:var(--dark);color:var(--on-dark);border-radius:var(--radius);padding:22px 26px;
+  }
+  .creators h2{font-size:1.2rem}
+  .creators p{color:var(--on-dark-soft);font-size:.9rem;max-width:56ch;margin-top:4px}
+  .creators .btn{background:var(--accent);color:#06242a;margin:0}
+  .creators .btn:hover{background:#4fd0dc}
+
+  /* ---------- Columna derecha ---------- */
+  .aside{display:flex;flex-direction:column;gap:16px;align-self:start;position:sticky;top:76px}
+  .panel{background:var(--dark);color:var(--on-dark);border:1px solid var(--dark-line);border-radius:var(--radius);padding:14px}
+  .panel h2{font-size:1.02rem;margin-bottom:10px}
+  .item{background:var(--dark-2);border:1px solid var(--dark-line);border-radius:10px;padding:12px;margin-top:10px}
+  .item:first-of-type{margin-top:0}
+  .item small{display:block;font-size:.7rem;color:var(--on-dark-soft)}
+  .item h3{font-size:.92rem;line-height:1.3;margin:4px 0}
+  .item p{font-size:.8rem;color:var(--on-dark-soft)}
+  .item time{display:block;font-size:.78rem;color:var(--on-dark-soft);margin-top:4px}
+  .item button{
+    margin-top:8px;padding:6px 12px;border-radius:8px;font-size:.78rem;
+    background:#0f2830;border:1px solid var(--dark-line);color:var(--on-dark);
+  }
+  .item button:hover{border-color:var(--accent)}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1180px){
+    .content{grid-template-columns:1fr}
+    .aside{position:static;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  }
+  @media (max-width:900px){
+    .app{grid-template-columns:68px 1fr}
+    .brand span,.nav a span{display:none}
+    .brand{justify-content:center;padding-inline:0}
+    .nav a{justify-content:center;padding:12px}
+    .content{padding:20px 18px 32px}
+    .topbar{padding:12px 18px}
+  }
+  @media (max-width:640px){
+    .app{grid-template-columns:1fr}
+    .sidebar{
+      position:static;height:auto;flex-direction:row;align-items:center;gap:4px;
+      overflow-x:auto;padding:10px;
+    }
+    .brand{padding:0 8px 0 0}
+    .nav{display:flex;gap:2px}
+    .nav a{padding:10px;flex:none}
+    .post{grid-template-columns:1fr;max-height:none}
+    .post-img{min-height:130px;height:130px}
+    .post-body{padding-right:0}
+    .close{background:rgba(14,31,37,.7);color:#fff}
+    .promo-grid{grid-template-columns:1fr 1fr;gap:10px}
+    .cover{height:100px}
+    .topbar .avatar{display:none}
+  }
+  @media (max-width:420px){ .promo-grid{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="main">
+    <!-- ===== CONTENIDO ===== -->
+    <div class="content">
+      <main>
+        <section class="intro">
+          <p class="saludo" id="saludo"></p>
+          <h1>Ideas que inspiran. Conocimiento que transforma.</h1>
+          <p>Lecturas de Bayora y cursos con visibilidad contratada, seleccionados para despertar tu próxima idea.</p>
+        </section>
+
+        <!-- Publicaciones de Bayora -->
+        <section class="section" id="seccion-publicaciones">
+          <div class="section-head"><h2>Publicaciones de Bayora</h2></div>
+          <div class="posts" id="posts"></div>
+        </section>
+
+        <!-- Cursos promocionados -->
+        <section class="section">
+          <div class="section-head">
+            <h2>Cursos promocionados</h2>
+            <a href="catalogo.html">Ver el catálogo completo</a>
+          </div>
+          <div class="promo-grid" id="promo-grid"></div>
+        </section>
+
+        <!-- Descubre en Bayora -->
+        <section class="section">
+          <div class="section-head"><h2>Descubre en Bayora</h2></div>
+          <div class="cats" id="cats"></div>
+        </section>
+
+        <!-- Creadores -->
+        <section class="section">
+          <div class="creators">
+            <div>
+              <h2>Comparte lo que sabes</h2>
+              <p>Publica tus propios cursos en Bayora, elige si serán gratuitos o de pago y, si quieres más visibilidad, contrata un espacio de promoción.</p>
+            </div>
+            <a class="btn" href="instructor.html">Crear un curso</a>
+          </div>
+        </section>
+      </main>
+
+      <!-- Columna derecha -->
+      <aside class="aside" aria-label="Eventos y notificaciones">
+        <section class="panel">
+          <h2>Próximos eventos</h2>
+          <div id="events"></div>
+        </section>
+        <section class="panel">
+          <h2>Notificaciones</h2>
+          <div id="notifs"></div>
+        </section>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ==========================================================
+   DATOS DE EJEMPLO (editables).
+   Más adelante estos arreglos se reemplazan por datos reales
+   que vengan de la base de datos (Supabase).
+   ========================================================== */
+const publicaciones = BY.get('posts');
+const promociones = BY.get('promos');
+
+const categorias = [
+  ["Tecnología","💻","#d9f3f6"],["Salud","🩺","#fde3ea"],["Ciencias","🔬","#dff5ec"],
+  ["Ingeniería","⚙️","#e8e8f5"],["Negocios","📈","#e3f2dc"],["Diseño","🎨","#ece4fb"],
+  ["Idiomas","🌎","#dfeefb"],["Arte","🖌️","#fbe9d9"],["Educación","📚","#f6efd3"],
+  ["Desarrollo personal","🌱","#e0f3e6"],["Otras","✨","#ececec"]
+];
+
+const eventos = [
+  { titulo:"Simposio de Innovación en Biotecnología Aplicada", fecha:"18/10/2026" },
+  { titulo:"Jornada de Avances en Ingeniería Genética y Ciencia de Materiales", fecha:"01/11/2026" }
+];
+
+const notificaciones = [
+  { titulo:"Te damos la bienvenida", texto:"Tu cuenta está lista. Explora el catálogo y comienza tu primer curso.", fecha:new Date().toLocaleDateString("es-PE"), leida:false }
+];
+
+/* ==========================================================
+   FUNCIONES
+   ========================================================== */
+const hoy = new Date().toISOString().slice(0,10);
+const promocionActiva = p => p.inicio <= hoy && hoy <= p.fin;
+
+function ilustracion(colores, variante){
+  const [a,b,c] = colores;
+  const forma = variante === "post"
+    ? `<rect x="40" y="70" width="120" height="80" rx="8" fill="#fff" opacity=".92"/>
+       <rect x="52" y="84" width="70" height="6" rx="3" fill="${a}" opacity=".6"/>
+       <rect x="52" y="98" width="96" height="6" rx="3" fill="${a}" opacity=".35"/>
+       <rect x="52" y="112" width="84" height="6" rx="3" fill="${a}" opacity=".35"/>
+       <circle cx="250" cy="70" r="34" fill="${c}" opacity=".85"/>
+       <rect x="200" y="110" width="100" height="40" rx="8" fill="${b}" opacity=".9"/>`
+    : `<circle cx="150" cy="60" r="46" fill="${b}" opacity=".35"/>
+       <circle cx="215" cy="95" r="30" fill="${b}" opacity=".5"/>
+       <rect x="60" y="80" width="90" height="50" rx="10" fill="#fff" opacity=".85"/>`;
+  return `<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><linearGradient id="g${a.slice(1)}${variante}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${variante==='post'?b:a}"/></linearGradient></defs>
+    <rect width="320" height="180" fill="url(#g${a.slice(1)}${variante})"/>${forma}</svg>`;
+}
+
+/* --- Multimedia de las publicaciones (imagen o video, subido o por enlace) --- */
+function embed(u){
+  const y = u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/), v = u.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  return y ? "https://www.youtube.com/embed/" + y[1] : v ? "https://player.vimeo.com/video/" + v[1] : "";
+}
+function cargarMedia(p, box){
+  const fallback = box.innerHTML;
+  const put = src => {
+    box.innerHTML = p.tipo === "video"
+      ? `<video controls preload="metadata" playsinline src="${src}"></video>`
+      : `<img src="${src}" alt="${p.titulo}" loading="lazy">`;
+    const m = box.firstElementChild;
+    m.addEventListener("error", () => { box.innerHTML = fallback; });
+  };
+  if (p.origen === "enlace") {
+    const em = p.tipo === "video" ? embed(p.url) : "";
+    if (em) box.innerHTML = `<iframe src="${BY.esc(em)}" title="${p.titulo}" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>`;
+    else put(BY.esc(p.url));
+  } else if (p.media) {
+    BY.url(p.media).then(src => { if (src) put(src); });
+  }
+}
+
+/* --- Publicaciones --- */
+const postsEl = document.getElementById("posts");
+publicaciones.forEach((p, i) => {
+  const el = document.createElement("article");
+  el.className = "post";
+  const enlace = p.enlace && /^https?:\/\//i.test(p.enlace)
+    ? `<a class="btn ghost" href="${BY.esc(p.enlace)}" target="_blank" rel="noopener">${p.boton || "Ver más"}</a>` : "";
+  el.innerHTML = `
+    <div class="post-img">${ilustracion(p.colores,"post")}</div>
+    <div class="post-body">
+      <div class="post-meta"><span class="badge-bayora"><i></i>Bayora Academy</span><span>${p.fecha}</span>${p.tipo==="video"?'<span class="tipo">▶ Video</span>':""}</div>
+      <h3>${p.titulo}</h3>
+      <p>${p.resumen}</p>
+      <div class="post-actions"><button class="btn" data-more>Leer publicación</button>${enlace}</div>
+    </div>
+    <button class="close" title="Ocultar" aria-label="Ocultar publicación">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>`;
+  // Ocultar SOLO temporal: no se guarda en ningún lado (ni localStorage, ni cookies, ni base de datos).
+  // Al recargar la página, vuelve a aparecer.
+  el.querySelector(".close").addEventListener("click", () => {
+    el.classList.add("hiding");
+    setTimeout(() => {
+      el.hidden = true;
+      if (![...postsEl.children].some(c => !c.hidden)) {
+        document.getElementById("seccion-publicaciones").hidden = true;
+      }
+    }, 330);
+  });
+  el.querySelector("[data-more]").addEventListener("click", e => {
+    const p = el.querySelector("p"), abierto = p.style.webkitLineClamp === "unset";
+    p.style.webkitLineClamp = abierto ? "2" : "unset"; el.style.maxHeight = abierto ? "" : "none";
+    e.target.textContent = abierto ? "Leer publicación" : "Ver menos";
+  });
+  if (p.tipo === "imagen" || p.tipo === "video") cargarMedia(p, el.querySelector(".post-img"));
+  postsEl.appendChild(el);
+});
+
+const cid = c => { const x = BY.get('courses').find(y => y.id === c.cid || y.titulo === c.curso); return x ? x.id : ''; };
+/* --- Cursos promocionados --- */
+const grid = document.getElementById("promo-grid");
+promociones.filter(promocionActiva).forEach(c => {
+  const precio = c.precio === 0
+    ? `<span class="price free">GRATIS</span>`
+    : `<span class="price">S/ ${c.precio}</span>`;
+  const el = document.createElement("article");
+  el.className = "course";
+  el.innerHTML = `
+    <div class="cover">${ilustracion(c.colores,"curso")}<span class="tag-promo">PROMOCIONADO</span></div>
+    <div class="course-body">
+      <span class="cat">${c.categoria}</span>
+      <h3>${c.curso}</h3>
+      <span class="by">${c.creador}</span>
+      <div class="stats"><span class="stars">★ ${c.rating.toFixed(1)}</span><span>${c.estudiantes.toLocaleString("es-PE")} estudiantes</span></div>
+      <div class="course-foot">${precio}<a class="btn small" href="curso.html?id=${cid(c)}">Ver curso</a></div>
+    </div>`;
+  grid.appendChild(el);
+});
+
+if (!grid.children.length) grid.innerHTML = '<p class="by">Pronto verás aquí cursos promocionados.</p>';
+
+/* --- Categorías --- */
+document.getElementById("cats").innerHTML = categorias.map(([n,i,bg]) =>
+  `<a class="cat-card" href="catalogo.html?cat=${encodeURIComponent(n)}"><span class="ico" style="background:${bg}">${i}</span>${n}</a>`).join("");
+
+/* --- Eventos --- */
+document.getElementById("events").innerHTML = eventos.map(e => `
+  <div class="item"><small>Evento</small><h3>${e.titulo}</h3><time>${e.fecha}</time><button>Ver evento</button></div>`).join("");
+
+/* --- Notificaciones --- */
+const notifEl = document.getElementById("notifs");
+notificaciones.forEach(n => {
+  const el = document.createElement("div");
+  el.className = "item";
+  el.innerHTML = `<h3>${n.titulo}</h3><p>${n.texto}</p><time>${n.fecha}</time><button>Marcar como leída</button>`;
+  el.querySelector("button").addEventListener("click", () => el.remove());
+  notifEl.appendChild(el);
+});
+
+/* --- Navegación única (barra lateral y superior) --- */
+const {s:sesion,u:yo}=BY.hdr('i');
+document.querySelectorAll(".course,.cat-card,.post,.item").forEach((el,i) => el.animate([{opacity:0,transform:"translateY(14px)"},{opacity:1,transform:"none"}],{duration:500,delay:i*50,fill:"backwards",easing:"ease-out"}));
+document.getElementById("saludo").textContent = "Hola, " + (sesion.nombre || "").split(" ")[0];
+const cb = document.querySelector(".creators .btn");
+if (cb) { const ok = yo.instructor || yo.rol === "admin"; cb.href = ok ? "constructor.html?new=1" : "instructor.html"; cb.textContent = ok ? "Crear un curso" : "Quiero enseñar"; }
+</script>
+</body>
+</html>
